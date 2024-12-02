@@ -8,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style_beranda.css') }}">
     <link rel="stylesheet" href="{{ asset('css/pagination.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('foto/Dataduk.png') }}"/>
     <title>{{ucfirst(request() -> segment(1))}} || DataDuk</title>
 
 </head>
