@@ -16,16 +16,26 @@ class PendudukController extends Controller
     public function index(Request $request, Penduduk $pdd)
     {
         $query = $pdd->newQuery();
-
         // Tambahkan filter berdasarkan query parameter
-        if ($request->has('nik')) {
-            $query->where('nik', 'like', '%' . $request->nik . '%');
-        }
+        // Tambahkan filter untuk admin
 
+        if ($request->user() != null) {
+            // Admin dapat mencari berdasarkan NIK atau nama
+            if ($request->has('search') && $request->user()->admin == "1") {
+                $query->where(function ($q) use ($request) {
+                    $q->where('nik', 'like', '%' . $request->search . '%')
+                    ->orWhere('nama','like','%'.$request->search.'%');
+                       ;
+                });
+            }
+        } else {
+            if ($request->has('search')) {
+                $query->where('nama', 'like', '%' . $request->search . '%');
+            }
+        }
         $query->orderBy('created_at', 'desc');
 
         $data = $query->paginate(10);
-
         // Kembalikan response dengan status 200
         return response()->json($data, 200);
     }
@@ -43,10 +53,9 @@ class PendudukController extends Controller
      */
     public function store(StorePendudukRequest $request)
     {
-        $data = $request->validated(); 
+        $data = $request->validated();
         Penduduk::create($data);
-        return redirect('/dashboard')->with('status','Berhasil menambahkan data.');
-        
+        return redirect('/dashboard')->with('status', 'Berhasil menambahkan data.');
     }
 
     /**
@@ -54,7 +63,7 @@ class PendudukController extends Controller
      */
     public function show(Penduduk $penduduk)
     {
-        return view('admin.dashboard.edit', ["data"=>$penduduk]);
+        return view('admin.dashboard.edit', ["data" => $penduduk]);
     }
 
     /**
@@ -64,7 +73,7 @@ class PendudukController extends Controller
     {
         $data = $request->validated();
         $penduduk->update($data);
-        return redirect('/dashboard')->with('status','Berhasil mengubah data.');
+        return redirect('/dashboard')->with('status', 'Berhasil mengubah data.');
     }
 
     /**
@@ -87,9 +96,9 @@ class PendudukController extends Controller
 
     public function chart(Request $request, Penduduk $pdd)
     {
-        if($request->has('tahun')){
+        if ($request->has('tahun')) {
             $startYear = $request->tahun;
-        }else{
+        } else {
             $startYear = 1970;
         }
         $endYear = $startYear + 10 - 1;

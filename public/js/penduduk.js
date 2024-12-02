@@ -74,8 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Get data
-function get_data(page = 1, nik = filternik) {
-    fetch(`/api/penduduk?nik=${nik}&page=${page}`)
+function get_data(page = 1, search = filtersearch) {
+    fetch(`/api/penduduk?search=${search}&page=${page}`)
         .then(response => response.json())
         .then(data => {
             updateTable(data); // Fungsi untuk memperbarui tabel
@@ -96,7 +96,7 @@ function updatePagination(data) {
             prevButton.classList.add('disabled');
         } else {
             prevButton.classList.remove('disabled');
-            prevButton.addEventListener('click', () => get_data(data.current_page - 1, filternik));
+            prevButton.addEventListener('click', () => get_data(data.current_page - 1, filtersearch));
         }
     }
 
@@ -108,7 +108,7 @@ function updatePagination(data) {
             if (page == data.current_page) {
                 pageItem.classList.add('active');
             } else {
-                pageItem.addEventListener('click', () => get_data(page, filternik));
+                pageItem.addEventListener('click', () => get_data(page, filtersearch));
             }
 
             pageItem.disabled = page === data.current_page; // Nonaktifkan tombol halaman aktif
@@ -133,7 +133,7 @@ function updatePagination(data) {
         if (page == data.current_page) {
             pageItem.classList.add('active');
         } else {
-            pageItem.addEventListener('click', () => get_data(page, filternik));
+            pageItem.addEventListener('click', () => get_data(page, filtersearch));
         }
 
         pageItem.disabled = page === data.current_page; // Nonaktifkan tombol halaman aktif
@@ -155,7 +155,7 @@ function updatePagination(data) {
         if (page == data.current_page) {
             pageItem.classList.add('active');
         } else {
-            pageItem.addEventListener('click', () => get_data(page, filternik));
+            pageItem.addEventListener('click', () => get_data(page, filtersearch));
         }
 
         pageItem.disabled = page === data.current_page; // Nonaktifkan tombol halaman aktif
@@ -172,7 +172,7 @@ function updatePagination(data) {
         if (data.current_page == data.last_page) {
             nextButton.classList.add(data.currentPage == data.totalPages ? 'disabled' : '');
         } else {
-            nextButton.addEventListener('click', () => get_data(data.current_page + 1, filternik));
+            nextButton.addEventListener('click', () => get_data(data.current_page + 1, filtersearch));
         }
     }
 
@@ -219,10 +219,10 @@ function updateTable(penduduk) {
     });
 }
 
-let filternik = "";
+let filtersearch = "";
 function applyFilter() {
-    filternik = document.getElementById('searchInput').value;
-    get_data(1, filternik);
+    filtersearch = document.getElementById('filtersearchInput').value;
+    get_data(1, filtersearch);
 }
 
 document.addEventListener('DOMContentLoaded', () => {

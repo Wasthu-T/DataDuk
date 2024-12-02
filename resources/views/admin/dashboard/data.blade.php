@@ -109,7 +109,7 @@
 
                 <div class="card-body">
                     <div class="mb-3">
-                        <input type="text" class="form-control" id="searchInput" placeholder="Cari data penduduk..." onkeyup="applyFilter()">
+                        <input type="text" class="form-control" id="filtersearchInput" placeholder="Cari data penduduk..." onkeyup="applyFilter()">
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-" id="pendudukTable">
