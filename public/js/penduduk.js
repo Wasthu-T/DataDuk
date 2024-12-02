@@ -57,7 +57,8 @@ function Render_chart(data_penduduk) {
             }]
         },
         options: {
-            responsive: true
+            responsive: true,
+            maintainAspectRatio: false, 
         }
     });
 }

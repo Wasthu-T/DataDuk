@@ -11,9 +11,14 @@
 </head>
 
 <body>
-    <div class="d-flex">
-        @include('admin.dashboard.partial.navbar')
-        @yield('container')
+    <div class="row d-flex m-0">
+        <div class="col col-md-3 col-lg-2 p-0">
+            @include('admin.dashboard.partial.navbar')
+        </div>
+
+        <div class="col col-md-9 col-lg-10 p-0">
+            @yield('container')
+        </div>
     </div>
 </body>
 

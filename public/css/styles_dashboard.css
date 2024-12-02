@@ -8,15 +8,13 @@ body {
     height: 100vh;
     padding-top: 20px;
 }
-.sidebar .nav-item a {
+.nav-item a {
     color: #fff;
 }
-.sidebar .nav-item:hover {
+.nav-item:hover {
     background-color: #3D5A73;
 }
-.main-content {
-    padding: 20px;
-}
+
 .btn-sm {
     padding: 5px 10px;
     font-size: 0.8rem;
@@ -65,4 +63,17 @@ body {
     background: url('https://www.transparenttextures.com/patterns/petals.png') repeat; /* Gambar corak petir */
     clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Membuat bentuk petir */
     z-index: -1;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    padding: 1rem;
+}
+
+@media (min-width: 767px) {
+    .nav1 {
+        height: 100vh;
+    }
 }

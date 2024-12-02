@@ -5,18 +5,18 @@
 @endsection
 
 @section('container')
-<div class="containera">
-    <nav class="navbar navbar-expand-lg" style="background-color: #2F3D40;">
-        <a class="navbar-brand text-white" href="#">Dashboard</a>
-        <div class="ms-auto d-flex align-items-center">
-            <img src="https://via.placeholder.com/40" class="avatar rounded-circle" alt="User Avatar">
-            <span class="ms-2 text-white">{{auth()->user()->name}}</span>
-        </div>
-    </nav>
-    <div class="row p-3">
-        <!-- Total Data -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
+<nav class="navbar justify-content-between p-2" style="background-color: #2F3D40;">
+    <a class="navbar-brand text-white" href="#">Dashboard</a>
+    <div class="ms-auto d-flex align-items-center">
+        <img src="https://via.placeholder.com/40" class="avatar rounded-circle" alt="User Avatar">
+        <span class="ms-2 text-white">{{auth()->user()->name}}</span>
+    </div>
+</nav>
+<div class="container">
+
+    <div class="row p-2">
+        <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
+            <div class="card m-2" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
                 <div class="card-body text-center text-white">
                     <h5 class="card-title">TOTAL DATA</h5>
                     <p class="card-text"><span id="total_penduduk"></span></p>
@@ -24,9 +24,8 @@
             </div>
         </div>
 
-        <!-- Average Temperature -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card" style="background: linear-gradient(135deg, #455559, #769aa8);">
+        <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
+            <div class="card m-2" style="background: linear-gradient(135deg, #455559, #769aa8);">
                 <div class="card-body text-center text-white">
                     <h5 class="card-title">LAKI-LAKI</h5>
                     <p class="card-text"><span id="laki-laki"></span></p>
@@ -34,9 +33,8 @@
             </div>
         </div>
 
-        <!-- Average Humidity -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
+        <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
+            <div class="card m-2" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
                 <div class="card-body text-center text-white">
                     <h5 class="card-title">PEREMPUAN</h5>
                     <p class="card-text"><span id="perempuan"></span></p>
@@ -44,9 +42,8 @@
             </div>
         </div>
 
-        <!-- Device Online -->
-        <div class="col-md-3 col-sm-6">
-            <div class="card" style="background: linear-gradient(135deg, #455559, #769aa8);">
+        <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
+            <div class="card m-2" style="background: linear-gradient(135deg, #455559, #769aa8);">
                 <div class="card-body text-center text-white">
                     <h5 class="card-title">WNA</h5>
                     <p class="card-text"><span id="wna"></span></p>
@@ -60,53 +57,54 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-    <div class="card">
-        <div class="mb-3">
-            <select name="tahun" id="tahun" class="form-select" onchange="filterChart()">
-                <option value="">Pilih Tahun</option>
-                @php
-                $currentYear = date('Y');
-                $startYear = 1970;
-                @endphp
-                @for ($year = $startYear; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
+    <div class="card mb-3">
+        <select name="tahun" id="tahun" class="form-select" onchange="filterChart()">
+            <option value="">Pilih Tahun</option>
+            @php
+            $currentYear = date('Y');
+            $startYear = 1970;
+            @endphp
+            @for ($year = $startYear; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
                 @endfor
-            </select>
-        </div>
+        </select>
     </div>
     <div class="row">
-        <!-- Pendatang Graph -->
-        <div class="col-md-6">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
                     <b>Persebaran Kelahiran</b>
                 </div>
-                <div class="card-body">
-                    <canvas id="persebaranKelahiran"></canvas>
+                <div class="card-body p-0">
+                    <div class="chart-container">
+                        <canvas id="persebaranKelahiran"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="row p-3">
+
+    <div class="row pt-2">
         <div class="col-12">
             <div class="card">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                    <h5>Pengelolaan Data Penduduk</h5>
-                    <div>
-                        <!-- Tombol Tambah Data yang mengarahkan ke halaman lain -->
-                        <a href="/dashboard/tambah" class="btn btn-primary me-1">
+                <div class="card-header d-flex flex-column flex-md-row justify-content-between align-items-center">
+                    <h5 class="mb-3 mb-md-0">Pengelolaan Data Penduduk</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        <!-- Tombol Tambah Data -->
+                        <a href="/dashboard/tambah" class="btn btn-primary btn-sm flex-grow-1 flex-md-grow-0">
                             <i class="fas fa-plus-circle"></i> Tambah Data
                         </a>
                         <!-- Tombol Refresh -->
-                        <button class="btn btn-success me-1" onclick="refreshPage()">
+                        <button class="btn btn-success btn-sm flex-grow-1 flex-md-grow-0" onclick="refreshPage()">
                             <i class="fas fa-sync-alt"></i> Refresh
                         </button>
                         <!-- Tombol Cetak -->
-                        <button class="btn btn-warning me-1" onclick="printTable()">
+                        <button class="btn btn-warning btn-sm flex-grow-1 flex-md-grow-0" onclick="printTable()">
                             <i class="fas fa-print"></i> Cetak
                         </button>
                     </div>
                 </div>
+
 
                 <div class="card-body">
                     <div class="mb-3">
@@ -131,7 +129,7 @@
                                 </tr>
                             </thead>
                             <tbody id="TablePenduduk">
-                                <!-- Tambahkan baris lain di sini -->
+                                <!-- Data lain -->
                             </tbody>
                         </table>
                     </div>
@@ -141,10 +139,11 @@
         </div>
     </div>
 
-    <div id="pagination">
-        <!-- Tombol pagination akan diisi di sini -->
+    <div id="pagination" class="my-2">
+        <!-- Pagination -->
     </div>
 </div>
+
 
 <!-- model -->
 <div class="modal fade mt-5" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
@@ -170,7 +169,6 @@
 @endsection
 
 @section('scripts')
-<!-- Chart.js CDN for graphs -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{{ asset('js/penduduk.js') }}"></script>
