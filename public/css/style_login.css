@@ -1,0 +1,116 @@
+body {
+    background: url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 100"><polygon points="0,0 100,0 50,50 100,100 0,100 50,50" fill="%23ffffff"/><polygon points="100,0 100,100 0,100 50,50" fill="%233D5A73"/></svg>') no-repeat center center;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Penuhi layar */
+    width: 100%;
+}
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 600; 
+    color: #3D5A73; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+}
+.center-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+.card {
+    width: 100%;
+    max-width: 400px;
+}
+/* Button */
+.btn-custom {
+    color: #3D5A73; 
+    background-color: #fff; 
+    border-color: #3D5A73; 
+    transition: all 0.3s ease; 
+}
+
+.btn-custom:hover {
+    color: #fff; 
+    background-color: #3D5A73; 
+    border-color: #3D5A73; 
+}
+
+/* Form */
+.input-group-text {
+    background-color: #3D5A73; 
+    color: #fff; 
+    border-color: #3D5A73; 
+}
+.text-hover {
+    position: relative;
+    color:#3D5A73;
+    text-decoration: none; 
+    color: inherit;
+}
+.text-hover:after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #3D5A73;
+    transition: width 0.3s;
+}
+.text-hover:hover:after {
+    width: 100%;
+}
+.card {
+    border: 3px solid #3D5A73;
+    background: linear-gradient(to bottom right);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    animation: slideIn 0.5s ease-out;
+}
+.card::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 5px;
+    background-color: #3D5A73;
+    border-radius: 10px;
+}
+@keyframes slideIn {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+.form-control:focus {
+    border-color: #3D5A73;
+    box-shadow: 0 0 5px rgba(61, 90, 115, 0.3);
+    animation: inputFocus 0.3s ease-in-out;
+}
+@keyframes inputFocus {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.btn-custom {
+    background-color: #fff;
+    border-color: #3D5A73;
+    transition: background-color 0.3s, transform 0.2s ease;
+    border-radius: 8px;
+}
