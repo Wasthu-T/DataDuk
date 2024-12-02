@@ -2,15 +2,18 @@ body {
     background-color: #f4f6f9;
 
 }
+
 .sidebar {
     background-color: #3D5A73;
     color: #fff;
     height: 100vh;
     padding-top: 20px;
 }
+
 .nav-item a {
     color: #fff;
 }
+
 .nav-item:hover {
     background-color: #3D5A73;
 }
@@ -21,31 +24,40 @@ body {
     border-radius: 5px;
     margin: 0 3px;
 }
+
 .card-header {
     background-color: #f8f9fc;
 }
+
 .avatar {
     width: 40px;
     height: 40px;
     object-fit: cover;
 }
+
 .form-label {
     font-weight: bold;
 }
-.table th, .table td {
+
+.table th,
+.table td {
     vertical-align: middle;
 }
+
 .form-control:focus {
     border-color: #3D5A73;
     box-shadow: 0 0 5px rgba(61, 90, 115, 0.3);
     animation: inputFocus 0.3s ease-in-out;
 }
+
 .text {
-    font-size: 2rem; /* Ukuran kecil, seperti h4 */
+    font-size: 2rem;
+    /* Ukuran kecil, seperti h4 */
     font-weight: bold;
     position: relative;
     color: transparent;
-    background: linear-gradient(45deg, #ffffff 50%, #3D5A73 50%); /* Pembagian dari atas kanan ke bawah kiri */
+    background: linear-gradient(45deg, #ffffff 50%, #3D5A73 50%);
+    /* Pembagian dari atas kanan ke bawah kiri */
     background-size: 100% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -60,8 +72,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: url('https://www.transparenttextures.com/patterns/petals.png') repeat; /* Gambar corak petir */
-    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Membuat bentuk petir */
+    background: url('https://www.transparenttextures.com/patterns/petals.png') repeat;
+    /* Gambar corak petir */
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    /* Membuat bentuk petir */
     z-index: -1;
 }
 
@@ -71,6 +85,7 @@ body {
     height: 400px;
     padding: 1rem;
 }
+
 
 @media (min-width: 767px) {
     .nav1 {

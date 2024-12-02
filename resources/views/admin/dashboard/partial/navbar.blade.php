@@ -18,8 +18,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="update_data.html" class="nav-link text-white">
-                    <i class="fas fa-edit"></i> Data Public
+                <a href="/beranda" class="nav-link text-white">
+                    <i class="fas fa-house"></i> Beranda
                 </a>
             </li>
             <li class="nav-item">

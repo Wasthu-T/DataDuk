@@ -1,18 +1,21 @@
 <?php
 
-use App\Models\Penduduk;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PendudukController;
 
-// Route::get('/beranda', function () {
-    // $data = Penduduk::paginate(10); 
-//     return $data;
-// });
-Route::get('/p/{penduduk:nik}', function (Penduduk $penduduk) {
-    return $penduduk;
+// guest
+Route::get('/', function () {
+    return redirect('/beranda');
 });
+Route::get('/beranda', [GuestController::class, 'index']);
+Route::get('/about', [GuestController::class, 'index']);
+Route::get('/faq', [GuestController::class, 'index']);
+Route::get('/contact', [GuestController::class, 'index']);
+// guest end
+
 // login start
 Route::get('/masuk', [LoginController::class, 'index'])->middleware('guest')->name('login');
 Route::post('/masuk', [LoginController::class, 'masuk'])->middleware('throttle:5,1');

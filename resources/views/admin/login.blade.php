@@ -47,15 +47,15 @@
                             <input required name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Masukkan Password">
                         </div>
                     </div>
-                    <div class="text-end mb-3">
+                    <!-- <div class="text-end mb-3">
                         <a href="#" class="text-hover">Lupa Password?</a>
-                    </div>
+                    </div> -->
                     <div class="d-grid gap-2">
                         <button type="submit" class="btn btn-custom">Submit</button>
                     </div>
-                    <div class="mt-3 text-center">
+                    <!-- <div class="mt-3 text-center">
                         <span>Belum Punya Akun? <a href="/registration" class="text-hover">Daftar</a></span>
-                    </div>
+                    </div> -->
                 </form>
             </div>
         </div>

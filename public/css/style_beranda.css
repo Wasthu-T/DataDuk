@@ -1,0 +1,125 @@
+/* Navbar */
+.navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+    font-size: 2rem; 
+    font-weight: bold;
+    position: relative;
+    color: transparent;
+    background: linear-gradient(45deg, #ffffff 50%, #3D5A73 50%); 
+    background-size: 100% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-align: center;
+    display: inline-block;
+}
+.navbar-brand:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://www.transparenttextures.com/patterns/petals.png') repeat; 
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); 
+    z-index: -1;
+}
+.navbar-nav .nav-link {
+    font-size: 20px;
+    margin: 0 10px;
+    color: #ffffff;
+    text-decoration: none;
+}
+.navbar-nav .nav-link:hover {
+    color: #3D5A80;
+}
+body {
+    background: linear-gradient(135deg, #ededf0, #dcdee0);
+    font-family: Arial, sans-serif;
+}
+.header-section {
+    background-color: #2F3D40;
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+.team-member {
+    margin-bottom: 30px;
+}
+.team-member img {
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+}
+.team-member h5 {
+    margin-top: 15px;
+}
+
+/* Card untuk Search Bar */
+.card-body {
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.form-control:focus {
+    border-color: #3D5A73;
+    box-shadow: 0 0 5px rgba(61, 90, 115, 0.3);
+    animation: inputFocus 0.3s ease-in-out;
+}
+.mt-navbar {
+    margin-top: 20px; 
+}
+
+/* Tabel */
+table.table-bordered {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+table thead {
+    background: #2F3D40;
+    color: white;
+}
+table tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+footer .fa {
+    font-size: 20px;
+    color: white;
+    margin: 0 10px;
+}
+footer .fa:hover {
+    color: #f1f1f1;
+}
+.fab {
+    font-size: 26px; 
+    margin: 0 10px; 
+    color: #ffffff; 
+    text-decoration: none;
+}
+.fab:hover {
+    color: #3D5A80; 
+}
+.faq-section {
+    margin-top: 50px;
+    margin-bottom: 50px; 
+}
+.faq-question {
+    font-weight: bold;
+}
+.faq-answer {
+    margin-top: 10px;
+}
+footer {
+    margin-top: 50px; 
+}
