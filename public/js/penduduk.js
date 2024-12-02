@@ -195,14 +195,34 @@ function createActionButtons(nik) {
         </td>`;
 }
 
+function checkpath(path) {
+    return path == '/beranda' ? true : false;
+}
+
 function updateTable(penduduk) {
     let tableBody = document.getElementById('TablePenduduk');
     tableBody.innerHTML = ''; // Hapus isi tabel sebelumnya
-
+    let path = window.location.pathname
     penduduk.data.forEach(item => {
-        let row = `
+        if (checkpath(path) == true) {
+            let row = `
             <tr>
-                ${createTableCell(item.nik)}
+                ${createTableCell(item.nama)}
+                ${createTableCell(item.tmp_lahir)}
+                ${createTableCell(item.tgl_lahir)}
+                ${createTableCell(item.jns_kel)}
+                ${createTableCell(item.gol_d)}
+                ${createTableCell(item.agama)}
+                ${createTableCell(item.stt_kawin)}
+                ${createTableCell(item.pekerjaan)}
+                ${createTableCell(item.kwn)}
+            </tr>`;
+            tableBody.innerHTML += row;
+
+        } else {
+            let row = `
+            <tr>
+            ${createTableCell(item.nik)}
                 ${createTableCell(item.nama)}
                 ${createTableCell(item.tmp_lahir)}
                 ${createTableCell(item.tgl_lahir)}
@@ -214,8 +234,9 @@ function updateTable(penduduk) {
                 ${createTableCell(item.pekerjaan)}
                 ${createTableCell(item.kwn)}
                 ${createActionButtons(item.nik)}
-            </tr>`;
-        tableBody.innerHTML += row;
+                </tr>`;
+            tableBody.innerHTML += row;
+        }
     });
 }
 
