@@ -156,11 +156,7 @@
                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
                     <div class="input-group">
                         <span class="input-group-text">💼</span>
-                        <select required name="pekerjaan" class="form-control" id="pekerjaan">
-                            <option value="">Pilih Status Kewarganegaraan</option>
-                            <option value="WNI">WNI</option>
-                            <option value="WNA">WNA</option>
-                        </select>
+                        <input required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
                     </div>
                     @error('pekerjaan')
                     <div class="text-danger">
@@ -173,7 +169,11 @@
                     <label for="kwn" class="form-label">Kewarganegaraan</label>
                     <div class="input-group">
                         <span class="input-group-text">🌍</span>
-                        <input required name="kwn" type="text" class="form-control" id="kewarganegaraan" placeholder="Masukkan Kewarganegaraan">
+                        <select required name="kwn" class="form-control" id="kwn">
+                            <option value="">Pilih Status Kewarganegaraan</option>
+                            <option value="WNI">WNI</option>
+                            <option value="WNA">WNA</option>
+                        </select>
                     </div>
                     @error('kwn')
                     <div class="text-danger">
