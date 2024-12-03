@@ -156,7 +156,11 @@
                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
                     <div class="input-group">
                         <span class="input-group-text">💼</span>
-                        <input required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
+                        <select required name="pekerjaan" class="form-control" id="pekerjaan">
+                            <option value="">Pilih Status Kewarganegaraan</option>
+                            <option value="WNI">WNI</option>
+                            <option value="WNA">WNA</option>
+                        </select>
                     </div>
                     @error('pekerjaan')
                     <div class="text-danger">
