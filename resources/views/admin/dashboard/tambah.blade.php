@@ -16,7 +16,7 @@
                     <label for="nik" class="form-label">NIK</label>
                     <div class="input-group">
                         <span class="input-group-text">🆔</span>
-                        <input required name="nik" type="text" class="form-control" id="nik" placeholder="Masukkan NIK">
+                        <input minlength="16" maxlength="16" pattern="\d{16}" onkeypress="return /[0-9]/i.test(event.key)" required name="nik" type="text" class="form-control" id="nik" placeholder="Masukkan NIK">
                     </div>
                     @error('nik')
                     <div class="text-danger">
@@ -29,7 +29,7 @@
                     <label for="nama" class="form-label">Nama</label>
                     <div class="input-group">
                         <span class="input-group-text">👤</span>
-                        <input required name="nama" type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
+                        <input onkeydown="return /[a-zA-Z]/i.test(event.key)" required name="nama" type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
                     </div>
                     @error('nama')
                     <div class="text-danger">

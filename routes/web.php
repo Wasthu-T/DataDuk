@@ -5,6 +5,10 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PendudukController;
+// Buat pakai apa (framework=laravel,bahasa,database) --> 
+// Cara menjalankan (ada banyak cara dengan valet, laragon, dan artisan serve)-->
+// Cara buat (html, css lalu dimasukan ke laravel->alasan utama bisa input data banyak oleh bawaan laravel)
+// Bentuk laporan (scema 1 scema 2) -> individu
 
 // guest
 Route::get('/', function () {
