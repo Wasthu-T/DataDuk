@@ -69,9 +69,13 @@ class PendudukController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Penduduk $penduduk, UpdatePendudukRequest $request)
+    public function edit(UpdatePendudukRequest $request, Penduduk $penduduk)
     {
         $data = $request->validated();
+        $data['nama'] = ucwords(strtolower($data['nama']));
+        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
+        $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
         $penduduk->update($data);
         return redirect('/dashboard')->with('status', 'Berhasil mengubah data.');
     }

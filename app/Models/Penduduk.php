@@ -16,6 +16,26 @@ class Penduduk extends Model
     protected $keyType = 'string';
     protected $hidden = ['nik', 'alamat']; // Default hidden
 
+    public function setNamaAttribute($value)
+    {
+        $this->attributes['nama'] = ucwords(strtolower($value));
+    }
+
+    public function setAlamatAttribute($value)
+    {
+        $this->attributes['alamat'] = ucwords(strtolower($value));
+    }
+
+    public function setTempatLahirAttribute($value)
+    {
+        $this->attributes['tmp_lahir'] = ucwords(strtolower($value));
+    }
+
+    public function setPekerjaanAttribute($value)
+    {
+        $this->attributes['pekerjaan'] = ucwords(strtolower($value));
+    }
+
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
