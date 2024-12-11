@@ -80,18 +80,6 @@ class PendudukController extends Controller
         return redirect('/dashboard')->with('status', 'Berhasil mengubah data.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UpdatePendudukRequest $request, Penduduk $pdd)
-    // {
-    //     $validate = $request->validate();
-    //     //return redirect()
-    // }
-
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Penduduk $penduduk)
     {
         $penduduk->delete();

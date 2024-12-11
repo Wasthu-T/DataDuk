@@ -16,7 +16,8 @@ class LoginController extends Controller
     {
         $rules = [
             'password' => 'required|string',
-            'email' => 'required|email:dns',
+            'email' => 'required',
+            // 'email' => 'required|email:dns',
         ];
         $throttles = $request->session()->get('throttle', []);
         if (isset($throttles['login']) && $throttles['login'] >= 5) {

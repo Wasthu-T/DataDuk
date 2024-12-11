@@ -1,32 +1,3 @@
-// Count data
-function fetchcount(tahun = 1970) {
-    fetch(`/api/chart?tahun=${tahun}`)
-        .then(response => { return response.json(); })
-        .then(data => {
-            Render_chart(data);
-            let wni = document.getElementById('total_penduduk');
-            let gender_cwo = document.getElementById('laki-laki');
-            let gender_cwe = document.getElementById('perempuan');
-            let wna = document.getElementById('wna');
-            gender_cwo_value = data.gender[0][0];
-            gender_cwe_value = data.gender[0][1];
-            wni_value = data.kwn[0][0];
-            wna_value = data.kwn[0][1];
-
-            function getValue(data) {
-                return data ? data.total || 0 : 0;
-            }
-
-            gender_cwo.innerHTML = getValue(gender_cwo_value);
-            gender_cwe.innerHTML = getValue(gender_cwe_value);
-            wni.innerHTML = getValue(wni_value) + getValue(wna_value);
-            wna.innerHTML = getValue(wna_value);
-
-
-        })
-}
-
-
 // Pendatang Chart
 let persebaranKelahiran = null;
 function Render_chart(data_penduduk) {
@@ -74,6 +45,34 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Get data
+// Count data
+function fetchcount(tahun = 1970) {
+    fetch(`/api/chart?tahun=${tahun}`)
+        .then(response => { return response.json(); })
+        .then(data => {
+            Render_chart(data);
+            let wni = document.getElementById('total_penduduk');
+            let gender_cwo = document.getElementById('laki-laki');
+            let gender_cwe = document.getElementById('perempuan');
+            let wna = document.getElementById('wna');
+            gender_cwo_value = data.gender[0][0];
+            gender_cwe_value = data.gender[0][1];
+            wni_value = data.kwn[0][0];
+            wna_value = data.kwn[0][1];
+
+            function getValue(data) {
+                return data ? data.total || 0 : 0;
+            }
+
+            gender_cwo.innerHTML = getValue(gender_cwo_value);
+            gender_cwe.innerHTML = getValue(gender_cwe_value);
+            wni.innerHTML = getValue(wni_value) + getValue(wna_value);
+            wna.innerHTML = getValue(wna_value);
+
+
+        })
+}
+
 function get_data(page = 1, search = filtersearch) {
     fetch(`/api/penduduk?search=${search}&page=${page}`)
         .then(response => response.json())

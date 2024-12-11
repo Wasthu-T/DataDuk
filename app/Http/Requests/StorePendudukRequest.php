@@ -46,7 +46,7 @@ class StorePendudukRequest extends FormRequest
             'nama.required' => 'Nama wajib diisi.',
             'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
             'tmp_lahir.required' => 'Tempat lahir wajib diisi.',
-            'tgl_lahir.before_or_equal' => 'Umur maximal 17 tahun.',
+            'tgl_lahir.before_or_equal' => 'Umur minimal 17 tahun.',
             'jns_kel.required' => 'Jenis kelamin wajib diisi.',
             'jns_kel.in' => 'Jenis kelamin yang dimasukkan tidak valid.',
             'gol_d.required' => 'Golongan darah wajib diisi.',
