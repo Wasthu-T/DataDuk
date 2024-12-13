@@ -33,7 +33,7 @@ class PendudukController extends Controller
                 $query->where('nama', 'like', '%' . $request->search . '%');
             }
         }
-        $query->orderBy('created_at', 'desc');
+        $query->orderBy('updated_at', 'desc');
 
         $data = $query->paginate(10);
         // Kembalikan response dengan status 200
@@ -54,6 +54,10 @@ class PendudukController extends Controller
     public function store(StorePendudukRequest $request)
     {
         $data = $request->validated();
+        $data['nama'] = ucwords(strtolower($data['nama']));
+        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
+        $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
         Penduduk::create($data);
         return redirect('/dashboard')->with('status', 'Berhasil menambahkan data.');
     }
