@@ -18,16 +18,16 @@ class PendudukFactory extends Factory
     {
         return [
             'nik' => $this->faker->unique()->regexify('[1-9][0-9]{15}'),
-            'nama' => $this->faker->name(),
             'tmp_lahir' => $this->faker->city(),
             'tgl_lahir' => $this->faker->date('Y-m-d', '2007-11-30'),
             'jns_kel' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
-            'gol_d' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
-            'alamat' => $this->faker->address(),
-            'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
-            'stt_kawin' => $this->faker->randomElement(['kawin', 'belum kawin']),
-            'pekerjaan' => $this->faker->jobTitle(),
-            'kwn' => $this->faker->randomElement(['WNI'])
+            // 'nama' => $this->faker->name(),
+            // 'gol_d' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
+            // 'alamat' => $this->faker->address(),
+            // 'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Buddha', 'Konghucu']),
+            // 'stt_kawin' => $this->faker->randomElement(['kawin', 'belum kawin']),
+            // 'pekerjaan' => $this->faker->jobTitle(),
+            // 'kwn' => $this->faker->randomElement(['WNI'])
         ];
     }
 }

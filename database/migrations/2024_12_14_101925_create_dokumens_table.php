@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('penduduks', function (Blueprint $table) {
-            $table->string('nik')->primary();
-            $table->string('tmp_lahir');
-            $table->date('tgl_lahir');
-            $table->string('jns_kel');
-            $table->enum('gol_d',['A','B','AB','O']);
+        Schema::create('dokumens', function (Blueprint $table) {
+            $table->id();
+            $table->string('nik');
+            $table->enum('jenis_dokumen', ['KTP', 'KK', 'Surat Pindah', 'Lainnya']);
+            $table->foreign('nik')->references('nik')->on('penduduks');
+            $table->string('link');
             $table->timestamps();
         });
     }
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('penduduks');
+        Schema::dropIfExists('dokumens');
     }
 };
