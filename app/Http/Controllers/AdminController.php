@@ -10,5 +10,8 @@ class AdminController extends Controller
     public function index(){
         return view('admin.dashboard.data');
     }
+    public function index_domisili(){
+        return view('admin.dashboard.datapindah');
+    }
 
 }

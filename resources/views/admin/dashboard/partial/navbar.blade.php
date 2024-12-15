@@ -11,7 +11,12 @@
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a href="/dashboard" class="nav-link text-white">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                    <i class="fas fa-tachometer-alt"></i> Data Penduduk
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/dashboard/datapindah" class="nav-link text-white">
+                    <i class="fas fa-tachometer-alt"></i> Data Pindah
                 </a>
             </li>
             <li class="nav-item">

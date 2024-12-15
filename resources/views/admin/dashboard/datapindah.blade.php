@@ -65,41 +65,25 @@
             $currentYear = date('Y');
             $startYear = 1970;
             @endphp
-            @for ($year = $startYear; $year <= $currentYear; $year++) 
+            @for ($year = $startYear; $year <= $currentYear; $year++)
                 <option value="{{ $year }}">{{ $year }}</option>
-            @endfor
+                @endfor
         </select>
     </div>
 
-    <!-- <div class="row"> -->
-        <!-- Grafik Persebaran Perpindahan
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <b>Pesebaran Perpindahan</b>
-                </div>
-                <div class="card-body p-0">
-                    <div class="chart-container">
-                        <canvas id="persebaranPerpindahan"></canvas>
-                    </div>
-                </div>
+    <!-- Grafik Persebaran Perpindahan -->
+    <div class="col-12 mb-3">
+        <div class="card">
+            <div class="card-header">
+                <b>Pesebaran Perpindahan</b>
             </div>
-        </div> -->
-
-        <!-- Grafik Persebaran Kelahiran -->
-        <div class="col-12 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <b>Pesebaran Kelahiran</b>
-                </div>
-                <div class="card-body p-0">
-                    <div class="chart-container">
-                        <canvas id="persebaranKelahiran"></canvas>
-                    </div>
+            <div class="card-body p-0">
+                <div class="chart-container">
+                    <canvas id="persebaranPerpindahan"></canvas>
                 </div>
             </div>
         </div>
-    <!-- </div> -->
+    </div>
 
 
 
@@ -135,15 +119,12 @@
                                 <tr>
                                     <th>NIK</th>
                                     <th>Nama</th>
-                                    <th>Tempat Lahir</th>
-                                    <th>Tanggal Lahir</th>
                                     <th>Jenis Kelamin</th>
-                                    <th>Gol. Darah</th>
-                                    <th>Alamat</th>
-                                    <th>Agama</th>
-                                    <th>Status Perkawinan</th>
-                                    <th>Pekerjaan</th>
-                                    <th>Kewarganegaraan</th>
+                                    <th>Alamat Asal</th>
+                                    <th>Alamat Tujuan</th>
+                                    <th>Tanggal Pindah</th>
+                                    <th>Alasan Pindah</th>
+                                    <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -192,4 +173,5 @@
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ asset('js/penduduk.js') }}"></script>
+<script src="{{ asset('js/chart.js') }}"></script>
 @endsection

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoredomisiliRequest extends FormRequest
@@ -11,7 +12,8 @@ class StoredomisiliRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Auth::check() && Auth::user()->admin == '1';
+
     }
 
     /**
@@ -22,7 +24,38 @@ class StoredomisiliRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:penduduks,nik',
+            'alamat_asal' => 'required|string|max:255',
+            'alamat_tujuan' => 'required|string|max:255',
+            'tanggal_pindah' => 'required|date',
+            'alasan_pindah' => 'required|string',
+            'link' => 'required|string',
+            'status' => 'required|string|max:255'
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'nik.required' => 'NIK wajib diisi.',
+            'nik.size' => 'NIK harus terdiri dari 16 karakter.',
+            'nik.unique' => 'NIK sudah terdaftar.',
+            'nik.regex' => 'NIK hanya boleh berisi angka.',
+            'nama.required' => 'Nama wajib diisi.',
+            'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'tmp_lahir.required' => 'Tempat lahir wajib diisi.',
+            'tgl_lahir.required' => 'Tanggal lahir wajib diisi.',
+            'tgl_lahir.date' => 'Tanggal tidak valid.',
+            'jns_kel.required' => 'Jenis kelamin wajib diisi.',
+            'jns_kel.in' => 'Jenis kelamin yang dimasukkan tidak valid.',
+            'gol_d.required' => 'Golongan darah wajib diisi.',
+            'gol_d.in' => 'Golongan darah yang dimasukkan tidak valid.',
+            'alamat.required' => 'Alamat wajib diisi.',
+            'agama.required' => 'Agama wajib diisi.',
+            'agama.in' => 'Agama yang dimasukkan tidak valid.',
+            'stt_kawin.in' => 'Status kawin yang dimasukkan tidak valid.',
+            'pekerjaan.required' => 'Pekerjaan wajib diisi.',
+            'kwn.required' => 'Kewarganaan wajib diisi.',
+            'kwn.in' => 'Kewarganaan yang dimasukkan tidak valid.',
         ];
     }
 }

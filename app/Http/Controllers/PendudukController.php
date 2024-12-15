@@ -60,7 +60,36 @@ class PendudukController extends Controller
         $data['alamat'] = ucwords(strtolower($data['alamat']));
         $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
         $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
-        Penduduk::create($data);
+
+        $pendudukData = collect($data)->only([
+            'nik', 'tmp_lahir', 'tgl_lahir', 'jns_kel', 'gol_d'
+        ])->toArray();
+    
+        $statusPendudukData = collect($data)->only([
+            'nik', 'nama', 'alamat', 'agama', 'stt_kawin', 'pekerjaan', 'kwn'
+        ])->toArray();
+        Penduduk::create($pendudukData);
+        statuspenduduk::create($statusPendudukData);
+        return redirect('/dashboard')->with('status', 'Berhasil menambahkan data.');
+    }
+
+    public function store_domisili(StorePendudukRequest $request)
+    {
+        $data = $request->validated();
+        $data['nama'] = ucwords(strtolower($data['nama']));
+        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
+        $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
+
+        $pendudukData = collect($data)->only([
+            'nik', 'tmp_lahir', 'tgl_lahir', 'jns_kel', 'gol_d'
+        ])->toArray();
+    
+        $statusPendudukData = collect($data)->only([
+            'nik', 'nama', 'alamat', 'agama', 'stt_kawin', 'pekerjaan', 'kwn'
+        ])->toArray();
+        Penduduk::create($pendudukData);
+        statuspenduduk::create($statusPendudukData);
         return redirect('/dashboard')->with('status', 'Berhasil menambahkan data.');
     }
 

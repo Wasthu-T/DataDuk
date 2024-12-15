@@ -59,12 +59,11 @@
                         <span class="input-group-text">🏡</span>
                         <textarea required name="alamat_tujuan" class="form-control" id="alamat_tujuan" placeholder="Masukkan Alamat" rows="3"></textarea>
                     </div>
-                    @error('alamat')
+                    @error('alamat_tujuan')
                     <div class="text-danger">
                         {{$message}}
                     </div>
                     @enderror
-                    <!-- <div class="invalid-feedback">Alamat harus diisi.</div> -->
                 </div>
                 <div class="mb-3">
                     <label for="alasan_pindah" class="form-label">Alasan Pindah</label>
@@ -77,18 +76,17 @@
                             <option value="belajar">Belajar</option>
                         </select>
                     </div>
-                    @error('alamat_tujuan')
+                    @error('alasan_pindah')
                     <div class="text-danger">
                         {{$message}}
                     </div>
                     @enderror
-                    <!-- <div class="invalid-feedback">Alasan Pindah harus dipilih.</div> -->
                 </div>
                 <div class="mb-3">
-                    <label for="stt_aktif" class="form-label">Status Keaktifan<label>
+                    <label for="stt_aktif" class="form-label">Status Keaktifan</label>
                     <div class="input-group">
-                        <span class="input-group-text">💍</span>
-                        <select required name="stt_aktif" class="form-control" id="stt_aktif">
+                        <span class="input-group-text">✴️</span>
+                        <select required name="stt_aktif" class="form-control" id="alasanPindah">
                             <option value="">Pilih Status Keaktifan</option>
                             <option value="tetap">Tetap</option>
                             <option value="pindah">Pindah</option>
@@ -99,7 +97,6 @@
                         {{$message}}
                     </div>
                     @enderror
-                    <!-- <div class="invalid-feedback">Alasan Pindah harus dipilih.</div> -->
                 </div>
                 <div class="mb-3">
                     <label for="dokumen_pindah" class="form-label">Upload Dokumen Surat Pindah</label>

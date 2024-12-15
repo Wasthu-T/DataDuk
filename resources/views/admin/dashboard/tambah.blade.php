@@ -169,7 +169,11 @@
                     <label for="kwn" class="form-label">Kewarganegaraan</label>
                     <div class="input-group">
                         <span class="input-group-text">🌍</span>
-                        <input required name="kwn" type="text" class="form-control" id="kewarganegaraan" placeholder="Masukkan Kewarganegaraan">
+                        <select required name="kwn" class="form-control" id="kewarganegaraan">
+                            <option value="">Pilih Kewarganaan</option>
+                            <option value="WNI">WNI</option>
+                            <option value="WNA">WNA</option>
+                        </select>
                     </div>
                     @error('kwn')
                     <div class="text-danger">

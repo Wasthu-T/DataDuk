@@ -17,11 +17,10 @@ return new class extends Migration
             $table->foreign('nik')->references('nik')->on('penduduks');
             $table->string('alamat_asal');
             $table->string('alamat_tujuan');
-            $table->string('keterangan');
             $table->date('tanggal_pindah');
             $table->string('alasan_pindah')->nullable();
             $table->string('link');
-            $table->boolean('status')->default(0);
+            $table->boolean('status')->default(0); # masuk/keluar 0 = keluar, 1 = masuk
             $table->timestamps();
         });
     }
