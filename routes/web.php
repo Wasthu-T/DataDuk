@@ -33,6 +33,7 @@ Route::prefix('/dashboard')->middleware(['auth','admin'])->group(function(){
     Route::get('/', [AdminController::class, 'index']);
     Route::get('/ubah/{penduduk:nik}', [PendudukController::class, 'show']);
     Route::get('/tambah', [PendudukController::class, 'create']);
+    Route::get('/pindah', [PendudukController::class, 'create_domisili']);
     Route::post('/tambah', [PendudukController::class, 'store']);
     Route::post('/ubah/{penduduk:nik}', [PendudukController::class, 'edit']);
     Route::post('/hapus/{penduduk:nik}', [PendudukController::class, 'destroy']);

@@ -1,5 +1,3 @@
-<!-- Dashboard Samping Awal -->
-
 <div class="nav1 navbar navbar-expand-md sticky-top d-block p-3 text-white " style="background-color: #2F3D40;">
     <div class="justify-content-between d-flex">
         <h4 class="text p-0 p-xl-3">DataDuk</h4>
@@ -16,12 +14,7 @@
             </li>
             <li class="nav-item">
                 <a href="/dashboard/tambah" class="nav-link text-white">
-                    <i class="fas fa-plus-circle"></i> Penduduk
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/dashboard/pindah" class="nav-link text-white">
-                    <i class="fas fa-plus-circle"></i> Perpindahan
+                    <i class="fas fa-plus-circle"></i> Add Data
                 </a>
             </li>
             <li class="nav-item">
@@ -41,5 +34,3 @@
         </ul>
     </div>
 </div>
-
-<!-- Dashboard Samping Akhir -->

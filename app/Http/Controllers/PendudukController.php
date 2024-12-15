@@ -45,6 +45,10 @@ class PendudukController extends Controller
     {
         return view('admin.dashboard.tambah');
     }
+    public function create_domisili()
+    {
+        return view('admin.dashboard.pindah');
+    }
 
     /**
      * Store a newly created resource in storage.

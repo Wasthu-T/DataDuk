@@ -28,7 +28,7 @@
         <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
             <div class="card m-2" style="background: linear-gradient(135deg, #455559, #769aa8);">
                 <div class="card-body text-center text-white">
-                    <h5 class="card-title">PENDUDUK TETAP</h5>
+                    <h5 class="card-title">LAKI-LAKI</h5>
                     <p class="card-text"><span id="laki-laki"></span></p>
                 </div>
             </div>
@@ -37,7 +37,7 @@
         <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
             <div class="card m-2" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
                 <div class="card-body text-center text-white">
-                    <h5 class="card-title">PERPINDAHAN</h5>
+                    <h5 class="card-title">PEREMPUAN</h5>
                     <p class="card-text"><span id="perempuan"></span></p>
                 </div>
             </div>
@@ -65,32 +65,15 @@
             $currentYear = date('Y');
             $startYear = 1970;
             @endphp
-            @for ($year = $startYear; $year <= $currentYear; $year++) 
-                <option value="{{ $year }}">{{ $year }}</option>
-            @endfor
+            @for ($year = $startYear; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
+                @endfor
         </select>
     </div>
-
     <div class="row">
-        <!-- Grafik Persebaran Perpindahan -->
-        <div class="col-12 col-md-6 mb-3">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <b>Pesebaran Perpindahan</b>
-                </div>
-                <div class="card-body p-0">
-                    <div class="chart-container">
-                        <canvas id="persebaranPerpindahan"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Grafik Persebaran Kelahiran -->
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    <b>Pesebaran Kelahiran</b>
+                    <b>Persebaran Kelahiran</b>
                 </div>
                 <div class="card-body p-0">
                     <div class="chart-container">
@@ -100,7 +83,6 @@
             </div>
         </div>
     </div>
-
 
 
     <div class="row pt-2">
@@ -175,7 +157,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data dengan kode <span id="deletenik"></span> ini?
+                Apakah Anda yakin ingin menghapus data dengan nik <span id="deletenik"></span> ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>

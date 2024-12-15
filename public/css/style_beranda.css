@@ -123,3 +123,21 @@ footer .fa:hover {
 footer {
     margin-top: 50px; 
 }
+
+/* Awal Chart */
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+
+.card-body {
+    padding: 1rem; /* Pindahkan padding ke card-body */
+}
+
+canvas {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+}
+/* Awal Chart */
