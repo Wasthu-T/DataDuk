@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('keterangan');
             $table->date('tanggal_pindah');
             $table->string('alasan_pindah')->nullable();
+            $table->string('link');
             $table->boolean('status')->default(0);
             $table->timestamps();
         });

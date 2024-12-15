@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GuestController;
@@ -40,3 +41,20 @@ Route::prefix('/dashboard')->middleware(['auth','admin'])->group(function(){
 
 Route::get('/api/penduduk', [PendudukController::class, 'index']);
 
+
+Route::get('/test/{id}', function($id){
+    // $provinsiResponse = Http::get(url('https://dataduk.test/api/alamat/provinsi',[],['verify' => false]));
+    $provinsiResponse = Http::withOptions([
+        'verify' => false
+    ])->get('https://dataduk.test/api/alamat/provinsi');
+    $data = $provinsiResponse->json();
+    $randomProvinsi = $data[array_rand($data)];
+    dd($randomProvinsi);
+
+
+    // Cetak data random
+
+    // foreach ($data as $provinsi) {
+        // dd($provinsi);
+    // }
+});

@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\PendudukController;
-use Illuminate\Support\Facades\Route;
 
 // Route::get('/penduduk', [PendudukController::class, 'index']);
 Route::get('/penduduk/{Penduduk:nik}', [PendudukController::class, 'show']);
@@ -15,3 +15,4 @@ Route::prefix('/alamat')->group(function(){
     Route::get('/desa/{id}', [AlamatController::class, 'get_desa']);
     Route::get('/kodepos/{id}', [AlamatController::class, 'get_kodepos']);
 });
+

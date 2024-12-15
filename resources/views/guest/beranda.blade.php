@@ -42,31 +42,59 @@
     </button>
 </div>
 
-<div class="card-body">
-    <div class="mb-3">
-        <input type="text" class="form-control" id="filtersearchInput" placeholder="Cari data penduduk..." onkeyup="applyFilter()">
+<div class="card mb-3 p-3">
+    <select name="tahun" id="tahun" class="form-select" onchange="filterChart()">
+        <option value="">Pilih Tahun</option>
+        @php
+        $currentYear = date('Y');
+        $startYear = 1970;
+        @endphp
+        @for ($year = $startYear; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
+            @endfor
+    </select>
+    <div class="row">
+        <!-- Grafik Persebaran Kelahiran -->
+        <div class="row">
+        <div class="col-12 p-3">
+            <div class="card p-3">
+                <div class="card-header">
+                    <b>Persebaran Kelahiran</b>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart-container">
+                        <canvas id="persebaranKelahiran"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="pendudukTable">
-            <thead class="text-center">
-                <tr>
-                    <th>Nama</th>
-                    <th>Tempat Lahir</th>
-                    <th>Tanggal Lahir</th>
-                    <th>Jenis Kelamin</th>
-                    <th>Gol. Darah</th>
-                    <th>Agama</th>
-                    <th>Status Perkawinan</th>
-                    <th>Pekerjaan</th>
-                    <th>Kewarganegaraan</th>
-                </tr>
-            </thead>
-            <tbody id="TablePenduduk">
-                <!-- Data lain -->
-            </tbody>
-        </table>
     </div>
+</div>
 
+<div class="card mb-3 p-3">
+    <select name="tahun" id="tahun" class="form-select" onchange="filterChart()">
+        <option value="">Pilih Tahun</option>
+        @php
+        $currentYear = date('Y');
+        $startYear = 1970;
+        @endphp
+        @for ($year = $startYear; $year <= $currentYear; $year++) <option value="{{ $year }}">{{ $year }}</option>
+            @endfor
+    </select>
+    <div class="row">
+        <div class="col-12 p-3">
+            <div class="card p-3">
+                <div class="card-header">
+                    <b>Persebaran Perpindahan</b>
+                </div>
+                <div class="card-body p-3">
+                    <div class="chart-container">
+                        <canvas id="persebaranPerpindahan"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container my-5">
@@ -79,5 +107,7 @@
 @endsection
 
 @section('javascripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="{{ asset('js/penduduk.js') }}"></script>
+<script src="{{ asset('js/chart.js') }}"></script>
 @endsection

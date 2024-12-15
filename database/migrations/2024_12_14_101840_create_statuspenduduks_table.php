@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nik');
             $table->foreign('nik')->references('nik')->on('penduduks');
             $table->string('nama');
+            $table->string('alamat');
             $table->string('agama');
             $table->enum('stt_kawin',['kawin','belum kawin']);
             $table->string('pekerjaan');

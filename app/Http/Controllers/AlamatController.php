@@ -27,7 +27,6 @@ class AlamatController extends Controller
         }
     
         fclose($file);
-    
         return response()->json($data);
     }
 
@@ -44,16 +43,18 @@ class AlamatController extends Controller
                 $header = $row; // Baris pertama sebagai header
             } else {
                 $rowData = array_combine($header, $row);
-
-                if (strpos($rowData['kode_provinsi'], $id) !== false) {
+                if (trim($rowData['kode_provinsi']) == $id) {
                     $data[] = $rowData;
                 }
             }
         }
     
         fclose($file);
-    
-        return response()->json($data);
+
+        if (!empty($data)){
+            return response()->json($data);
+        }
+        return response()->json(['message'=>"Data Tidak ditemukan"],400);
     }
     public function get_kecamatan($id)
     {
@@ -63,13 +64,12 @@ class AlamatController extends Controller
         $header = null; // Simpan header CSV
         $data = [];     // Simpan data hasil parsing
     
-        while (($row = fgetcsv($file, 1000, ';')) !== false) {
+        while (($row = fgetcsv($file, 10000, ';')) !== false) {
             if (!$header) {
                 $header = $row; // Baris pertama sebagai header
             } else {
                 $rowData = array_combine($header, $row);
-
-                if (strpos($rowData['kode_kabupaten'], $id) !== false) {
+                if (trim($rowData['kode_kabupaten']) == $id) {
                     $data[] = $rowData;
                 }
             }
@@ -77,7 +77,10 @@ class AlamatController extends Controller
     
         fclose($file);
     
-        return response()->json($data);
+        if (!empty($data)){
+            return response()->json($data);
+        }
+        return response()->json(['message'=>"Data Tidak ditemukan"],400);
     }
 
     public function get_desa($id)
@@ -88,13 +91,12 @@ class AlamatController extends Controller
         $header = null; // Simpan header CSV
         $data = [];     // Simpan data hasil parsing
     
-        while (($row = fgetcsv($file, 1000, ';')) !== false) {
+        while (($row = fgetcsv($file, 90000, ';')) !== false) {
             if (!$header) {
                 $header = $row; // Baris pertama sebagai header
             } else {
                 $rowData = array_combine($header, $row);
-
-                if (strpos($rowData['kode_kecamatan'], $id) !== false) {
+                if (trim($rowData['kode_kecamatan']) == $id) {
                     $data[] = $rowData;
                 }
             }
@@ -102,7 +104,10 @@ class AlamatController extends Controller
     
         fclose($file);
     
-        return response()->json($data);
+        if (!empty($data)){
+            return response()->json($data);
+        }
+        return response()->json(['message'=>"Data Tidak ditemukan"],400);
     }
 
     public function get_kodepos($id)
@@ -113,13 +118,12 @@ class AlamatController extends Controller
         $header = null; // Simpan header CSV
         $data = [];     // Simpan data hasil parsing
     
-        while (($row = fgetcsv($file, 1000, ';')) !== false) {
+        while (($row = fgetcsv($file, 90000, ';')) !== false) {
             if (!$header) {
                 $header = $row; // Baris pertama sebagai header
             } else {
                 $rowData = array_combine($header, $row);
-
-                if (strpos($rowData['kode_desa'], $id) !== false) {
+                if (trim($rowData['kode_desa']) == $id) {
                     $data[] = $rowData;
                 }
             }
@@ -127,6 +131,9 @@ class AlamatController extends Controller
     
         fclose($file);
     
-        return response()->json($data);
+        if (!empty($data)){
+            return response()->json($data);
+        }
+        return response()->json(['message'=>"Data Tidak ditemukan"],400);
     }
 }

@@ -16,6 +16,14 @@ class Penduduk extends Model
     protected $keyType = 'string';
     protected $hidden = ['nik', 'alamat']; // Default hidden
 
+    public function data_status() {
+        return $this->belongsTo(statuspenduduk::class,'nik','nik');
+    }
+
+    public function domisili() {
+        return $this->hasMany(domisili::class,'nik','nik');
+    }
+
     public function setNamaAttribute($value)
     {
         $this->attributes['nama'] = ucwords(strtolower($value));

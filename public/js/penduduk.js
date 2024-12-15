@@ -202,19 +202,20 @@ function updateTable(penduduk) {
     let tableBody = document.getElementById('TablePenduduk');
     tableBody.innerHTML = ''; // Hapus isi tabel sebelumnya
     let path = window.location.pathname
+    console.log(penduduk.data);
     penduduk.data.forEach(item => {
         if (checkpath(path) == true) {
             let row = `
             <tr>
-                ${createTableCell(item.nama)}
+                ${createTableCell(item.data_status.nama)}
                 ${createTableCell(item.tmp_lahir)}
                 ${createTableCell(item.tgl_lahir)}
                 ${createTableCell(item.jns_kel)}
                 ${createTableCell(item.gol_d)}
-                ${createTableCell(item.agama)}
-                ${createTableCell(item.stt_kawin)}
-                ${createTableCell(item.pekerjaan)}
-                ${createTableCell(item.kwn)}
+                ${createTableCell(item.data_status.agama)}
+                ${createTableCell(item.data_status.stt_kawin)}
+                ${createTableCell(item.data_status.pekerjaan)}
+                ${createTableCell(item.data_status.kwn)}
             </tr>`;
             tableBody.innerHTML += row;
 
@@ -222,16 +223,16 @@ function updateTable(penduduk) {
             let row = `
             <tr>
             ${createTableCell(item.nik)}
-                ${createTableCell(item.nama)}
+                ${createTableCell(item.data_status.nama)}
                 ${createTableCell(item.tmp_lahir)}
                 ${createTableCell(item.tgl_lahir)}
                 ${createTableCell(item.jns_kel)}
                 ${createTableCell(item.gol_d)}
-                ${createTableCell(item.alamat)}
-                ${createTableCell(item.agama)}
-                ${createTableCell(item.stt_kawin)}
-                ${createTableCell(item.pekerjaan)}
-                ${createTableCell(item.kwn)}
+                ${createTableCell(item.data_status.alamat)}
+                ${createTableCell(item.data_status.agama)}
+                ${createTableCell(item.data_status.stt_kawin)}
+                ${createTableCell(item.data_status.pekerjaan)}
+                ${createTableCell(item.data_status.kwn)}
                 ${createActionButtons(item.nik)}
                 </tr>`;
             tableBody.innerHTML += row;

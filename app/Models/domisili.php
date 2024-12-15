@@ -9,4 +9,6 @@ class domisili extends Model
 {
     /** @use HasFactory<\Database\Factories\DomisiliFactory> */
     use HasFactory;
+    protected $guarded = [];
+
 }

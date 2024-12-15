@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StorePendudukRequest;
 use App\Http\Requests\UpdatePendudukRequest;
+use App\Models\statuspenduduk;
 
 class PendudukController extends Controller
 {
@@ -15,26 +16,23 @@ class PendudukController extends Controller
      */
     public function index(Request $request, Penduduk $pdd)
     {
-        $query = $pdd->newQuery();
-        // Tambahkan filter berdasarkan query parameter
-        // Tambahkan filter untuk admin
-
+        $query = $pdd->newQuery()->with('data_status');
         if ($request->user() != null) {
             // Admin dapat mencari berdasarkan NIK atau nama
             if ($request->has('search') && $request->user()->admin == "1") {
                 $query->where(function ($q) use ($request) {
-                    $q->where('nik', 'like', '%' . $request->search . '%')
-                    ->orWhere('nama','like','%'.$request->search.'%');
-                       ;
+                    $q->where('nik', 'like', '%' . $request->search . '%');
+                    // ->orWhere('nama','like','%'.$request->search.'%');
                 });
             }
         } else {
-            if ($request->has('search')) {
-                $query->where('nama', 'like', '%' . $request->search . '%');
-            }
+            // if ($request->has('search')) {
+            //     $query->where('nama', 'like', '%' . $request->search . '%');
+            // }
         }
         $query->orderBy('updated_at', 'desc');
 
+        // $data = $query->firstOrFail();
         $data = $query->paginate(10);
         // Kembalikan response dengan status 200
         return response()->json($data, 200);
@@ -90,7 +88,7 @@ class PendudukController extends Controller
         return redirect('/dashboard')->with('status', 'Data berhasil dihapus.');
     }
 
-    public function chart(Request $request, Penduduk $pdd)
+    public function chart(Request $request, Penduduk $pdd, statuspenduduk $stt)
     {
         if ($request->has('tahun')) {
             $startYear = $request->tahun;
@@ -107,8 +105,7 @@ class PendudukController extends Controller
             ->orderBy('tgl_lahir', 'asc')
             ->groupBy(DB::raw('DATE_FORMAT(' . 'tgl_lahir' . ', "%Y")'))
             ->get();
-
-        $asing = $pdd->select(DB::raw('count(*) as total, kwn'))
+        $asing = $stt->select(DB::raw('count(*) as total, kwn'))
             ->groupBy('kwn')
             ->get();
         // $total_gender = $pdd['jns_kel'];
