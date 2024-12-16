@@ -23,19 +23,22 @@ class UpdatePendudukRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:penduduks,nik,' . $this->route('penduduk.nik') . ',nik', 
-            'nama' => 'required|string|max:255|regex:/^[a-zA-Z\s]+$/',                     
-            'tmp_lahir' => 'required|string|max:255',                
-            'tgl_lahir' => 'required|date',            
-            'jns_kel' => 'required|string|in:Laki-laki,Perempuan', 
-            'gol_d' => 'required|string|in:A,B,AB,O',             
-            'alamat' => 'required|string|max:255',                  
-            'agama' => 'required|string|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu', 
-            'stt_kawin' => 'required|string|in:kawin,belum kawin',   
-            'pekerjaan' => 'required|string|max:255',                
-            'kwn' => 'required|string|in:WNI,WNA',                   
+            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:penduduks,nik,' . $this->route('penduduk.nik') . ',nik',
+            'nama' => 'required|string|max:255|regex:/^[a-zA-Z\s\.,]+$/',
+            'tmp_lahir' => 'required|string|max:255',
+            'tgl_lahir' => 'required|date',
+            'jns_kel' => 'required|string|in:Laki-laki,Perempuan',
+            'gol_d' => 'required|string|in:A,B,AB,O',
+            'provinsi' => 'required|string|max:255',
+            'kabupaten' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
+            'desa' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'agama' => 'required|string|in:Islam,Kristen,Katolik,Hindu,Buddha,Konghucu',
+            'stt_kawin' => 'required|string|in:kawin,belum kawin',
+            'pekerjaan' => 'required|string|max:255',
+            'kwn' => 'required|string|in:WNI,WNA',
         ];
-        
     }
     public function messages(): array
     {
@@ -46,6 +49,10 @@ class UpdatePendudukRequest extends FormRequest
             'nik.regex' => 'NIK hanya boleh berisi angka.',
             'nama.required' => 'Nama wajib diisi.',
             'nama.regex' => 'Nama hanya boleh berisi huruf dan spasi.',
+            'provinsi.required' => 'Provinsi wajib diisi.',
+            'kabupaten.required' => 'Kabupaten wajib diisi.',
+            'kecamatan.required' => 'Kecamatan wajib diisi.',
+            'desa.required' => 'Desa wajib diisi.',
             'tmp_lahir.required' => 'Tempat lahir wajib diisi.',
             'tgl_lahir.required' => 'Tanggal lahir wajib diisi.',
             'tgl_lahir.date' => 'Tanggal lahir tidak valid.',

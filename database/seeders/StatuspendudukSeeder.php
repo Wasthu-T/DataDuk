@@ -43,8 +43,8 @@ class StatuspendudukSeeder extends Seeder
             StatusPenduduk::create([
                 'nik' => $nik, // Gunakan NIK dari tabel penduduks
                 'nama' => fake()->name,
-                'alamat' => "{$randomdesa['nama_desa']}, {$randomkecamatan['nama_kecamatan']}, {$randomKabupaten['nama_kabupaten']}, {$randomProvinsi['nama_provinsi']}",
-                'agama' => fake()->randomElement(['Islam', 'Kristen', 'Hindu', 'Budha', 'Konghucu']),
+                'alamat' => fake()->street.", {$randomdesa['nama_desa']}, {$randomkecamatan['nama_kecamatan']}, {$randomKabupaten['nama_kabupaten']}, {$randomProvinsi['nama_provinsi']}",
+                'agama' => fake()->randomElement(['Islam', 'Kristen', 'Hindu', 'Buddha', 'Konghucu']),
                 'stt_kawin' => fake()->randomElement(['kawin', 'belum kawin']),
                 'pekerjaan' => fake()->jobTitle,
                 'kwn' => "WNI",

@@ -120,4 +120,7 @@
 </div>
 @endsection
 
+@section('scripts')
+<script src="{{ asset('js/alamat.js') }}"></script>
+@endsection
 <!-- Tampilan Data Perpindahan Akhir -->

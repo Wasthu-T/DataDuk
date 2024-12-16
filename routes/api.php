@@ -16,3 +16,4 @@ Route::prefix('/alamat')->group(function(){
     Route::get('/kodepos/{id}', [AlamatController::class, 'get_kodepos']);
 });
 
+

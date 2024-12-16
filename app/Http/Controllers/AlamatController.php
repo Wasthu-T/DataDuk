@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class AlamatController extends Controller
@@ -136,4 +137,5 @@ class AlamatController extends Controller
         }
         return response()->json(['message'=>"Data Tidak ditemukan"],400);
     }
+
 }

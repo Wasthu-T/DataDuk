@@ -15,7 +15,7 @@
                 <label for="nik" class="form-label">NIK</label>
                 <div class="input-group">
                     <span class="input-group-text">🆔</span>
-                    <input value="{{$data->nik}}" required name="nik" type="text" class="form-control" id="nik" placeholder="Masukkan NIK">
+                    <input minlength="16" maxlength="16" pattern="\d{16}" onkeypress="return /[0-9]/i.test(event.key)" value="{{$data->nik}}" readonly name="nik" type="text" class="form-control" id="nik">
                 </div>
                 @error('nik')
                 <div class="text-danger">
@@ -28,7 +28,7 @@
                 <label for="nama" class="form-label">Nama</label>
                 <div class="input-group">
                     <span class="input-group-text">👤</span>
-                    <input value="{{$data->nama}}" required name="nama" type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
+                    <input onkeydown="return /[a-zA-Z]/i.test(event.key)" value="{{$data_status->nama}}" required name="nama" type="text" class="form-control" id="nama">
                 </div>
                 @error('nama')
                 <div class="text-danger">
@@ -41,7 +41,7 @@
                 <label for="tmp_lahir" class="form-label">Tempat Lahir</label>
                 <div class="input-group">
                     <span class="input-group-text">🏙</span>
-                    <input value="{{$data->tmp_lahir}}" required name="tmp_lahir" type="text" class="form-control" id="tempatLahir" placeholder="Masukkan Tempat Lahir">
+                    <input value="{{$data->tmp_lahir}}" readonly name="tmp_lahir" type="text" class="form-control" id="tempatLahir" placeholder="Masukkan Tempat Lahir">
                 </div>
                 @error('tmp_lahir')
                 <div class="text-danger">
@@ -54,7 +54,7 @@
                 <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
                 <div class="input-group">
                     <span class="input-group-text">🎂</span>
-                    <input value="{{$data->tgl_lahir}}" required name="tgl_lahir" type="date" class="form-control" id="tanggalLahir">
+                    <input value="{{$data->tgl_lahir}}" readonly name="tgl_lahir" type="date" class="form-control" id="tanggalLahir">
                 </div>
                 @error('tgl_lahir')
                 <div class="text-danger">
@@ -96,20 +96,89 @@
                     {{$message}}
                 </div>
                 @enderror
-                <!-- <div class="invalid-feedback">Golongan Darah harus dipilih.</div> -->
             </div>
             <div class="mb-3">
-                <label for="alamat" class="form-label">Alamat</label>
+                @php
+                $location = $data_status->alamat;
+                $locationParts = explode(", ", $location);
+                @endphp
+                <label for="provinsi" class="form-label">Provinsi</label>
                 <div class="input-group">
                     <span class="input-group-text">🏡</span>
-                    <textarea required name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" rows="3">{{$data->alamat}}</textarea>
+                    <select required name="provinsi" class="form-control" id="provinsi">
+                        @if($data_status->alamat)
+                        <option value="{{ $locationParts[4] }}">{{ $locationParts[4] }}</option>
+                        @else
+                        <option value="">Pilih Provinsi</option>
+                        @endif
+                    </select>
+                </div>
+                @error('provinsi')
+                <div class="text-danger">
+                    {{$message}}
+                </div>
+                @enderror
+
+                <label for="kabupaten" class="form-label">Kabupaten</label>
+                <div class="input-group">
+                    <span class="input-group-text">🏡</span>
+                    <select required name="kabupaten" class="form-control" id="kabupaten">
+                        @if($data_status->alamat)
+                        <option value="{{$locationParts[3]}}">{{ $locationParts[3] }}</option>
+                        @else
+                        <option value="">Pilih Kabupaten</option>
+                        @endif
+                    </select>
+                </div>
+                @error('kabupaten')
+                <div class="text-danger">
+                    {{$message}}
+                </div>
+                @enderror
+
+                <label for="kecamatan" class="form-label">Kecamatan</label>
+                <div class="input-group">
+                    <span class="input-group-text">🏡</span>
+                    <select required name="kecamatan" class="form-control" id="kecamatan">
+                        @if($data_status->alamat)
+                        <option value="{{$locationParts[2]}}">{{ $locationParts[2] }}</option>
+                        @else
+                        <option value="">Pilih Kecamatan</option>
+                        @endif
+                    </select>
+                </div>
+                @error('kecamatan')
+                <div class="text-danger">
+                    {{$message}}
+                </div>
+                @enderror
+
+                <label for="desa" class="form-label">Desa</label>
+                <div class="input-group">
+                    <span class="input-group-text">🏡</span>
+                    <select required name="desa" class="form-control" id="desa">
+                        @if($data_status->alamat)
+                        <option value="{{$locationParts[1]}}">{{ $locationParts[1] }}</option>
+                        @else
+                        <option value="">Pilih Desa</option>
+                        @endif
+                    </select>
+                </div>
+                @error('desa')
+                <div class="text-danger">
+                    {{$message}}
+                </div>
+                @enderror
+
+                <div class="input-group">
+                    <span class="input-group-text">🏡</span>
+                    <textarea required name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" rows="3">{{$locationParts[0]}}</textarea>
                 </div>
                 @error('alamat')
                 <div class="text-danger">
                     {{$message}}
                 </div>
                 @enderror
-                <!-- <div class="invalid-feedback">Alamat harus diisi.</div> -->
             </div>
             <div class="mb-3">
                 <label for="agama" class="form-label">Agama</label>
@@ -117,12 +186,12 @@
                     <span class="input-group-text">🛐</span>
                     <select required name="agama" class="form-control" id="agama">
                         <option value="">Pilih Agama</option>
-                        <option value="Islam" {{ $data->agama == "Islam" ? 'selected' : '' }}>Islam</option>
-                        <option value="Kristen" {{ $data->agama == "Kristen" ? 'selected' : '' }}>Kristen</option>
-                        <option value="Katolik" {{ $data->agama == "Katolik" ? 'selected' : '' }}>Katolik</option>
-                        <option value="Hindu" {{ $data->agama == "Hindu" ? 'selected' : '' }}>Hindu</option>
-                        <option value="Buddha" {{ $data->agama == "Buddha" ? 'selected' : '' }}>Buddha</option>
-                        <option value="Konghucu" {{ $data->agama == "Konghucu" ? 'selected' : '' }}>Konghucu</option>
+                        <option value="Islam" {{ $data_status->agama == "Islam" ? 'selected' : '' }}>Islam</option>
+                        <option value="Kristen" {{ $data_status->agama == "Kristen" ? 'selected' : '' }}>Kristen</option>
+                        <option value="Katolik" {{ $data_status->agama == "Katolik" ? 'selected' : '' }}>Katolik</option>
+                        <option value="Hindu" {{ $data_status->agama == "Hindu" ? 'selected' : '' }}>Hindu</option>
+                        <option value="Budha" {{ $data_status->agama == "Budha" ? 'selected' : '' }}>Budha</option>
+                        <option value="Konghucu" {{ $data_status->agama == "Konghucu" ? 'selected' : '' }}>Konghucu</option>
                     </select>
                 </div>
                 @error('agama')
@@ -139,8 +208,8 @@
                     <span class="input-group-text">💍</span>
                     <select required name="stt_kawin" class="form-control" id="statusPerkawinan">
                         <option value="">Pilih Status Perkawinan</option>
-                        <option value="belum kawin" {{ $data->stt_kawin == "belum kawin" ? 'selected' : '' }}>Belum Kawin</option>
-                        <option value="kawin" {{ $data->stt_kawin == "kawin" ? 'selected' : '' }}>Kawin</option>
+                        <option value="belum kawin" {{ $data_status->stt_kawin == "belum kawin" ? 'selected' : '' }}>Belum Kawin</option>
+                        <option value="kawin" {{ $data_status->stt_kawin == "kawin" ? 'selected' : '' }}>Kawin</option>
                     </select>
                 </div>
                 @error('stt_kawin')
@@ -154,7 +223,7 @@
                 <label for="pekerjaan" class="form-label">Pekerjaan</label>
                 <div class="input-group">
                     <span class="input-group-text">💼</span>
-                    <input value="{{$data->pekerjaan}}" required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
+                    <input value="{{$data_status->pekerjaan}}" required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
                 </div>
                 @error('pekerjaan')
                 <div class="text-danger">
@@ -169,8 +238,8 @@
                     <span class="input-group-text">🌍</span>
                     <select required name="kwn" class="form-control" id="statusKewarganaan">
                         <option value="">Pilih Status Kewarganaan</option>
-                        <option value="WNI" {{ $data->kwn == "WNI" ? 'selected' : '' }}>WNI</option>
-                        <option value="WNA" {{ $data->kwn == "WNA" ? 'selected' : '' }}>WNA</option>
+                        <option value="WNI" {{ $data_status->kwn == "WNI" ? 'selected' : '' }}>WNI</option>
+                        <option value="WNA" {{ $data_status->kwn == "WNA" ? 'selected' : '' }}>WNA</option>
                     </select>
                 </div>
                 @error('kwn')
@@ -186,4 +255,8 @@
         </form>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/alamat.js') }}"></script>
 @endsection

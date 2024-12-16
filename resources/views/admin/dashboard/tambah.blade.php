@@ -16,7 +16,7 @@
                     <label for="nik" class="form-label">NIK</label>
                     <div class="input-group">
                         <span class="input-group-text">🆔</span>
-                        <input required name="nik" type="text" class="form-control" id="nik" placeholder="Masukkan NIK">
+                        <input value="{{old('nik')}}" minlength="16" maxlength="16" pattern="\d{16}" onkeypress="return /[0-9]/i.test(event.key)" required name="nik" type="text" class="form-control" id="nik" placeholder="Masukkan NIK">
                     </div>
                     @error('nik')
                     <div class="text-danger">
@@ -29,7 +29,7 @@
                     <label for="nama" class="form-label">Nama</label>
                     <div class="input-group">
                         <span class="input-group-text">👤</span>
-                        <input required name="nama" type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
+                        <input value="{{old('nama')}}" onkeydown="return /[a-zA-Z]/i.test(event.key)" required name="nama" type="text" class="form-control" id="nama" placeholder="Masukkan Nama">
                     </div>
                     @error('nama')
                     <div class="text-danger">
@@ -42,7 +42,7 @@
                     <label for="tmp_lahir" class="form-label">Tempat Lahir</label>
                     <div class="input-group">
                         <span class="input-group-text">🏙</span>
-                        <input required name="tmp_lahir" type="text" class="form-control" id="tempatLahir" placeholder="Masukkan Tempat Lahir">
+                        <input value="{{old('tmp_lahir')}}" required name="tmp_lahir" type="text" class="form-control" id="tempatLahir" placeholder="Masukkan Tempat Lahir">
                     </div>
                     @error('tmp_lahir')
                     <div class="text-danger">
@@ -55,7 +55,7 @@
                     <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
                     <div class="input-group">
                         <span class="input-group-text">🎂</span>
-                        <input required name="tgl_lahir" type="date" class="form-control" id="tanggalLahir">
+                        <input value="{{old('tgl_lahir')}}" required name="tgl_lahir" type="date" class="form-control" id="tanggalLahir">
                     </div>
                     @error('tgl_lahir')
                     <div class="text-danger">
@@ -98,20 +98,69 @@
                         {{$message}}
                     </div>
                     @enderror
-                    <!-- <div class="invalid-feedback">Golongan Darah harus dipilih.</div> -->
                 </div>
                 <div class="mb-3">
-                    <label for="alamat" class="form-label">Alamat</label>
+                    <label for="provinsi" class="form-label">Provinsi</label>
                     <div class="input-group">
                         <span class="input-group-text">🏡</span>
-                        <textarea required name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" rows="3"></textarea>
+                        <select required name="provinsi" class="form-control" id="provinsi">
+                            <option value="">Pilih Provinsi</option>
+                        </select>
+                    </div>
+                    @error('provinsi')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+
+                    <label for="kabupaten" class="form-label">Kabupaten</label>
+                    <div class="input-group">
+                        <span class="input-group-text">🏡</span>
+                        <select required name="kabupaten" class="form-control" id="kabupaten">
+                            <option value="">Pilih Kabupaten</option>
+                        </select>
+                    </div>
+                    @error('kabupaten')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+
+                    <label for="kecamatan" class="form-label">Kecamatan</label>
+                    <div class="input-group">
+                        <span class="input-group-text">🏡</span>
+                        <select required name="kecamatan" class="form-control" id="kecamatan">
+                            <option value="">Pilih Kecamatan</option>
+                        </select>
+                    </div>
+                    @error('kecamatan')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+
+                    <label for="desa" class="form-label">Desa</label>
+                    <div class="input-group">
+                        <span class="input-group-text">🏡</span>
+                        <select required name="desa" class="form-control" id="desa">
+                            <option value="">Pilih Desa</option>
+                        </select>
+                    </div>
+                    @error('desa')
+                    <div class="text-danger">
+                        {{$message}}
+                    </div>
+                    @enderror
+
+                    <div class="input-group">
+                        <span class="input-group-text">🏡</span>
+                        <textarea required name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat" rows="3">{{old('alamat')}}</textarea>
                     </div>
                     @error('alamat')
                     <div class="text-danger">
                         {{$message}}
                     </div>
                     @enderror
-                    <!-- <div class="invalid-feedback">Alamat harus diisi.</div> -->
                 </div>
                 <div class="mb-3">
                     <label for="agama" class="form-label">Agama</label>
@@ -156,7 +205,7 @@
                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
                     <div class="input-group">
                         <span class="input-group-text">💼</span>
-                        <input required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
+                        <input value="{{old('pekerjaan')}}" required name="pekerjaan" type="text" class="form-control" id="pekerjaan" placeholder="Masukkan Pekerjaan">
                     </div>
                     @error('pekerjaan')
                     <div class="text-danger">
@@ -189,4 +238,8 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script src="{{ asset('js/alamat.js') }}"></script>
 @endsection

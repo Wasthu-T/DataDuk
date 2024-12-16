@@ -57,16 +57,28 @@ class PendudukController extends Controller
     {
         $data = $request->validated();
         $data['nama'] = ucwords(strtolower($data['nama']));
-        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $cleanedLocation1 = str_replace(",", " ", $data['alamat']);
+        $cleanedLocation = str_replace("  ", " ", $cleanedLocation1);
+        $data['alamat'] = ucwords(strtolower($cleanedLocation)) . ', ' . $data['desa'] . ', ' . $data['kecamatan'] . ', ' . $data['kabupaten'] . ', ' . $data['provinsi'];
         $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
         $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
 
         $pendudukData = collect($data)->only([
-            'nik', 'tmp_lahir', 'tgl_lahir', 'jns_kel', 'gol_d'
+            'nik',
+            'tmp_lahir',
+            'tgl_lahir',
+            'jns_kel',
+            'gol_d'
         ])->toArray();
-    
+
         $statusPendudukData = collect($data)->only([
-            'nik', 'nama', 'alamat', 'agama', 'stt_kawin', 'pekerjaan', 'kwn'
+            'nik',
+            'nama',
+            'alamat',
+            'agama',
+            'stt_kawin',
+            'pekerjaan',
+            'kwn'
         ])->toArray();
         Penduduk::create($pendudukData);
         statuspenduduk::create($statusPendudukData);
@@ -77,16 +89,28 @@ class PendudukController extends Controller
     {
         $data = $request->validated();
         $data['nama'] = ucwords(strtolower($data['nama']));
-        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $cleanedLocation1 = str_replace(",", " ", $data['alamat']);
+        $cleanedLocation = str_replace("  ", " ", $cleanedLocation1);
+        $data['alamat'] = ucwords(strtolower($cleanedLocation)) . ', ' . $data['desa'] . ', ' . $data['kecamatan'] . ', ' . $data['kabupaten'] . ', ' . $data['provinsi'];
         $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
         $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
 
         $pendudukData = collect($data)->only([
-            'nik', 'tmp_lahir', 'tgl_lahir', 'jns_kel', 'gol_d'
+            'nik',
+            'tmp_lahir',
+            'tgl_lahir',
+            'jns_kel',
+            'gol_d'
         ])->toArray();
-    
+
         $statusPendudukData = collect($data)->only([
-            'nik', 'nama', 'alamat', 'agama', 'stt_kawin', 'pekerjaan', 'kwn'
+            'nik',
+            'nama',
+            'alamat',
+            'agama',
+            'stt_kawin',
+            'pekerjaan',
+            'kwn'
         ])->toArray();
         Penduduk::create($pendudukData);
         statuspenduduk::create($statusPendudukData);
@@ -98,7 +122,13 @@ class PendudukController extends Controller
      */
     public function show(Penduduk $penduduk)
     {
-        return view('admin.dashboard.edit', ["data" => $penduduk]);
+        return view(
+            'admin.dashboard.edit',
+            [
+                "data" => $penduduk,
+                "data_status" => $penduduk->data_status
+            ]
+        );
     }
 
     /**
@@ -108,10 +138,33 @@ class PendudukController extends Controller
     {
         $data = $request->validated();
         $data['nama'] = ucwords(strtolower($data['nama']));
-        $data['alamat'] = ucwords(strtolower($data['alamat']));
+        $cleanedLocation1 = str_replace(",", " ", $data['alamat']);
+        $cleanedLocation = str_replace("  ", " ", $cleanedLocation1);
+        $data['alamat'] = ucwords(strtolower($cleanedLocation)) . ', ' . $data['desa'] . ', ' . $data['kecamatan'] . ', ' . $data['kabupaten'] . ', ' . $data['provinsi'];
         $data['tmp_lahir'] = ucwords(strtolower($data['tmp_lahir']));
         $data['pekerjaan'] = ucwords(strtolower($data['pekerjaan']));
-        $penduduk->update($data);
+
+        $pendudukData = collect($data)->only([
+            'nik',
+            'tmp_lahir',
+            'tgl_lahir',
+            'jns_kel',
+            'gol_d'
+        ])->toArray();
+
+        $statusPendudukData = collect($data)->only([
+            'nik',
+            'nama',
+            'alamat',
+            'agama',
+            'stt_kawin',
+            'pekerjaan',
+            'kwn'
+        ])->toArray();
+        $penduduk->update($pendudukData);
+
+        $sttpdd = $penduduk->data_status;
+        $sttpdd->update($statusPendudukData);
         return redirect('/dashboard')->with('status', 'Berhasil mengubah data.');
     }
 
