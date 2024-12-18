@@ -22,9 +22,9 @@ class PendudukController extends Controller
             if ($request->has('search') && $request->user()->admin == "1") {
                 $query->where(function ($q) use ($request) {
                     $q->where('nik', 'like', '%' . $request->search . '%')
-                      ->orWhereHas('data_status', function ($query) use ($request) {
-                          $query->where('nama', 'like', '%' . $request->search . '%');
-                      });
+                        ->orWhereHas('data_status', function ($query) use ($request) {
+                            $query->where('nama', 'like', '%' . $request->search . '%');
+                        });
                 });
             }
         } else {
@@ -129,6 +129,15 @@ class PendudukController extends Controller
                 "data_status" => $penduduk->data_status
             ]
         );
+    }
+
+    public function show_api(statuspenduduk $sttpdd, $nik)
+    {
+        $penduduk = $sttpdd->where('nik',$nik)->firstOrFail();
+        $data = [
+            "data" => $penduduk,
+        ];
+        return response()->json($data, 200);
     }
 
     /**

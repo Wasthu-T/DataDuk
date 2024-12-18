@@ -46,6 +46,7 @@ Route::prefix('/dashboard')->middleware(['auth','admin'])->group(function(){
 // dashboard admin end
 
 Route::get('/api/penduduk', [PendudukController::class, 'index']);
+Route::get('/api/domisili', [DomisiliController::class, 'index']);
 
 
 Route::get('/test/{id}', function($id){

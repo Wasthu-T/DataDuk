@@ -50,12 +50,13 @@ function fetchcount(tahun = 2007) {
         .then(response => { return response.json(); })
         .then(data => {
             Render_chart(data.Pindah);
+            console.log(data);
             let Total_data = document.getElementById('total_data');
             let penduduk_tetap = document.getElementById('penduduk_tetap');
             let pindahan = document.getElementById('pindahan');
             let tahun_terbanyak = document.getElementById('tahun_terbanyak');
-            penduduk_tetap_value = data.Status[1];
-            pindahan_value = data.Status[0];
+            penduduk_tetap_value = data.Status[0];
+            pindahan_value = data.Status[1];
             tahun_terbanyak_value = data.Tahun_Terbanyak.tahun;
 
             function getValue(data) {
@@ -63,7 +64,7 @@ function fetchcount(tahun = 2007) {
             }
 
             Total_data.innerHTML = getValue(penduduk_tetap_value) + getValue(pindahan_value);
-            tahun_terbanyak.innerHTML = getValue(tahun_terbanyak_value);
+            tahun_terbanyak.innerHTML = tahun_terbanyak_value;
             penduduk_tetap.innerHTML = getValue(penduduk_tetap_value);
             pindahan.innerHTML = getValue(pindahan_value);
 
@@ -223,9 +224,8 @@ function updateTable(penduduk) {
             ${createTableCell(item.domisili[0].alamat_tujuan)}
             ${createTableCell(item.domisili[0].tanggal_pindah)}
             ${createTableCell(item.domisili[0].alasan_pindah)}
-            ${createPDF(item.domisili[0].link)}
             ${createTableCell(status)}
-            ${createActionButtons(item.data_status.nik)}
+            ${createPDF(item.domisili[0].link)}
         </tr>`;
         tableBody.innerHTML += row;
 

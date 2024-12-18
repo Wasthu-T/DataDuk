@@ -24,12 +24,16 @@ class StoredomisiliRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nik' => 'required|string|size:16|regex:/^[0-9]+$/|unique:penduduks,nik',
+            'nik' => 'required|string|size:16|regex:/^[0-9]+$/',
             'alamat_asal' => 'required|string|max:255',
+            'provinsi' => 'required|string|max:255',
+            'kabupaten' => 'required|string|max:255',
+            'kecamatan' => 'required|string|max:255',
+            'desa' => 'required|string|max:255',
             'alamat_tujuan' => 'required|string|max:255',
             'tanggal_pindah' => 'required|date',
             'alasan_pindah' => 'required|string',
-            'link' => 'required|string',
+            'link' => 'file|mimetypes:application/pdf|max:2048',
             'status' => 'required|string|max:255'
         ];
     }
@@ -56,6 +60,9 @@ class StoredomisiliRequest extends FormRequest
             'pekerjaan.required' => 'Pekerjaan wajib diisi.',
             'kwn.required' => 'Kewarganaan wajib diisi.',
             'kwn.in' => 'Kewarganaan yang dimasukkan tidak valid.',
+            'link.required' => 'Documen wajib diisi.',
+            'link.mimetypes' => 'Tipe documen yang diunggah harus berupa PDF.',
+            'link.max' => 'Ukuran dokumen maksimal adalah 2MB.',
         ];
     }
 }

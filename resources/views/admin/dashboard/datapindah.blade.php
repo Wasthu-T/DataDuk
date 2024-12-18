@@ -58,6 +58,12 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
+    @if(session()->has('error'))
+    <div class="alert alert-danger alert-dismissible fade show mt-3" role="alert">
+        <strong>{{ session('error') }} </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    @endif
     <div class="card mb-3">
         <select name="tahun" id="tahun" class="form-select" onchange="filterChart()">
             <option value="">Pilih Tahun</option>
@@ -124,9 +130,8 @@
                                     <th>Alamat Tujuan</th>
                                     <th>Tanggal Pindah</th>
                                     <th>Alasan Pindah</th>
-                                    <th>PDF</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>PDF</th>
                                 </tr>
                             </thead>
                             <tbody id="TablePenduduk">

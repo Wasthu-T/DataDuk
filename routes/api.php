@@ -5,9 +5,9 @@ use App\Http\Controllers\AlamatController;
 use App\Http\Controllers\DomisiliController;
 use App\Http\Controllers\PendudukController;
 
-Route::get('/penduduk', [PendudukController::class, 'index']);
-Route::get('/penduduk/{Penduduk:nik}', [PendudukController::class, 'show']);
+
 Route::get('/domisili', [DomisiliController::class, 'index']);
+Route::get('/penduduk/{statuspenduduk:nik}', [PendudukController::class, 'show_api']);
 Route::get('/domisili/chart', [DomisiliController::class, 'chart']);
 Route::get('/chart', [PendudukController::class, 'chart']);
 

@@ -8,7 +8,6 @@ use App\Http\Requests\StoredomisiliRequest;
 use App\Http\Requests\UpdatedomisiliRequest;
 use App\Models\Penduduk;
 use App\Models\statuspenduduk;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 class DomisiliController extends Controller
@@ -18,33 +17,43 @@ class DomisiliController extends Controller
      */
     public function index(Request $request, Penduduk $pdd)
     {
-        $query = $pdd->newQuery()->with(['data_status','domisili'])->whereHas('domisili');
-        if ($request->user() != null) {
-            // Admin dapat mencari berdasarkan NIK atau nama
-            if ($request->has('search') && $request->user()->admin == "1") {
+        // Mulai query dengan relasi domisili dan data_status
+        $query = $pdd->newQuery()->with(['domisili', 'data_status']);
+
+        // Jika user adalah admin, gunakan logika pencarian admin
+        if ($request->user() && $request->user()->admin == "1") {
+            if ($request->has('search')) {
                 $query->where(function ($q) use ($request) {
                     $q->where('nik', 'like', '%' . $request->search . '%')
-                      ->orWhereHas('data_status', function ($query) use ($request) {
-                          $query->where('nama', 'like', '%' . $request->search . '%');
-                      });
-                });
-            }
-        } else {
-            if ($request->has('search')) {
-                $query->WhereHas('data_status', function ($query) use ($request) {
-                    $query->where('nama', 'like', '%' . $request->search . '%');
+                        ->orWhereHas('data_status', function ($subQuery) use ($request) {
+                            $subQuery->where('nama', 'like', '%' . $request->search . '%');
+                        });
                 });
             }
         }
-        $query->orderBy('updated_at', 'desc');
+        // Jika bukan admin, hanya cari berdasarkan nama
+        else {
+            if ($request->has('search')) {
+                $query->whereHas('data_status', function ($subQuery) use ($request) {
+                    $subQuery->where('nama', 'like', '%' . $request->search . '%');
+                });
+            }
+        }
 
-        // $data = $query->firstOrFail();
+        // Tambahkan filter whereHas untuk memastikan ada data domisili
+        $query->whereHas('domisili');
+
+        // Urutkan berdasarkan updated_at dari tabel penduduks
+        $query->orderBy('penduduks.updated_at', 'desc');
+
+        // Ambil data dengan paginasi
         $data = $query->paginate(10);
-        // Kembalikan response dengan status 200
+
         return response()->json($data, 200);
     }
 
-    public function chart(Request $request, domisili $dms){
+    public function chart(Request $request, domisili $dms)
+    {
         if ($request->has('tahun')) {
             $startYear = $request->tahun;
         } else {
@@ -71,7 +80,7 @@ class DomisiliController extends Controller
             ->groupBy(DB::raw('DATE_FORMAT(' . 'tanggal_pindah' . ', "%Y")'))
             ->orderBy('total', 'desc')
             ->first();;
-        
+
 
         $data = [
             "Pindah" => $pindah,
@@ -95,7 +104,55 @@ class DomisiliController extends Controller
      */
     public function store(StoredomisiliRequest $request)
     {
-        //
+        $data = $request->validated();
+        $nik = $data['nik'];
+        $datapenduduk = statuspenduduk::where('nik', $nik)->first();
+        $penduduk = penduduk::where('nik', $nik)->first();
+        if (is_null($nik)) {
+            return redirect("/dashboard/pindah")->with('error', "Nik Belum Terdaftar.");
+        }
+
+        $cleanedLocation1 = str_replace(",", " ", $data['alamat_tujuan']);
+        $cleanedLocation = str_replace("  ", " ", $cleanedLocation1);
+        $data['alamat_tujuan'] = ucwords(strtolower($cleanedLocation)) . ', ' . $data['desa'] . ', ' . $data['kecamatan'] . ', ' . $data['kabupaten'] . ', ' . $data['provinsi'];
+
+        $domisilipdd = collect($data)->only([
+            'nik',
+            'alamat_asal',
+            'alamat_tujuan',
+            'tanggal_pindah',
+            'alasan_pindah',
+            'status'
+        ])->toArray();
+        $check_status = $domisilipdd['status'];
+        if ($check_status == "tetap") {
+            $domisilipdd['status'] = 1;
+        } elseif ($check_status == "pindah") {
+            $domisilipdd['status'] = 0;
+        } else {
+            return redirect("/dashboard/pindah")->with('error', "Status tidak valid.");
+        }
+
+        if ($request->file('link')) {
+            // Ambil file dari request
+            $document = $request->file('link');
+            // Buat nama file unik
+            $filename = 'pdf_' . time() . '_' . $data['nik'] . '.pdf';
+            // Tentukan path lengkap
+            $directory = 'pdf';
+            $path = '/storage/' . $directory . '/' . $filename;
+            // Simpan file ke path yang ditentukan
+            $document->storeAs($directory, $filename, 'public');
+            // Simpan path ke database
+            $domisilipdd['link'] = $path;
+
+            domisili::create($domisilipdd);
+            $datapenduduk->update(['alamat' => $data['alamat_tujuan']]);
+            $datapenduduk->touch();
+            $penduduk->touch();
+            return redirect('/dashboard/datapindah')->with('status', "Data Berhasil diubah.");
+        }
+        return redirect("/dashboard/pindah")->with('error', "Harap Isi semua form.");
     }
 
     /**
