@@ -21,14 +21,18 @@ class PendudukController extends Controller
             // Admin dapat mencari berdasarkan NIK atau nama
             if ($request->has('search') && $request->user()->admin == "1") {
                 $query->where(function ($q) use ($request) {
-                    $q->where('nik', 'like', '%' . $request->search . '%');
-                    // ->orWhere('nama','like','%'.$request->search.'%');
+                    $q->where('nik', 'like', '%' . $request->search . '%')
+                      ->orWhereHas('data_status', function ($query) use ($request) {
+                          $query->where('nama', 'like', '%' . $request->search . '%');
+                      });
                 });
             }
         } else {
-            // if ($request->has('search')) {
-            //     $query->where('nama', 'like', '%' . $request->search . '%');
-            // }
+            if ($request->has('search')) {
+                $query->WhereHas('data_status', function ($query) use ($request) {
+                    $query->where('nama', 'like', '%' . $request->search . '%');
+                });
+            }
         }
         $query->orderBy('updated_at', 'desc');
 
@@ -44,10 +48,6 @@ class PendudukController extends Controller
     public function create()
     {
         return view('admin.dashboard.tambah');
-    }
-    public function create_domisili()
-    {
-        return view('admin.dashboard.pindah');
     }
 
     /**

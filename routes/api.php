@@ -2,10 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlamatController;
+use App\Http\Controllers\DomisiliController;
 use App\Http\Controllers\PendudukController;
 
 Route::get('/penduduk', [PendudukController::class, 'index']);
 Route::get('/penduduk/{Penduduk:nik}', [PendudukController::class, 'show']);
+Route::get('/domisili', [DomisiliController::class, 'index']);
+Route::get('/domisili/chart', [DomisiliController::class, 'chart']);
 Route::get('/chart', [PendudukController::class, 'chart']);
 
 Route::prefix('/alamat')->group(function(){

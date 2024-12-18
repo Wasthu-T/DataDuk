@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Domisili;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
-use App\Models\Domisili;
+use App\Models\StatusPenduduk;
+use Illuminate\Support\Facades\Storage;
 
 class DomisiliSeeder extends Seeder
 {
@@ -14,46 +15,49 @@ class DomisiliSeeder extends Seeder
      */
     public function run(): void
     {
-        $provinsiResponse = Http::withOptions([
-            'verify' => false
-        ])->get('https://dataduk.test/api/alamat/provinsi');
-        $provinsiData = $provinsiResponse->json();
+        $datas = StatusPenduduk::select('nik', 'alamat')->take(10)->get(); // Ambil semua NIK dari tabel penduduks
+        $url = 'https://dataduk.test/pdf/Pindah%20Domisili.pdf';
+        $pdfContent = Http::withOptions(['verify' => false])->get($url)->body(); 
 
-        foreach ($provinsiData as $provinsi) {
-            // Ambil data kabupaten berdasarkan provinsi
-            $kabupatenResponse = Http::get('/api/kabupaten', [
-                'kode_provinsi' => $provinsi['kode_provinsi']
-            ]);
+        foreach ($datas as $data) {
+            $provinsiResponse = Http::withOptions([
+                'verify' => false
+            ])->get('https://dataduk.test/api/alamat/provinsi/');
+            $provinsiData = $provinsiResponse->json();
+            $randomprovinsi = $provinsiData[array_rand($provinsiData)];
+
+            $kabupatenResponse = Http::withOptions([
+                'verify' => false
+            ])->get('https://dataduk.test/api/alamat/kabupaten/' . $randomprovinsi['kode_provinsi']);
             $kabupatenData = $kabupatenResponse->json();
+            $randomKabupaten = $kabupatenData[array_rand($kabupatenData)];
 
-            foreach ($kabupatenData as $kabupaten) {
-                // Ambil data kecamatan berdasarkan kabupaten
-                $kecamatanResponse = Http::get('/api/kecamatan', [
-                    'kode_kabupaten' => $kabupaten['kode_kabupaten']
-                ]);
-                $kecamatanData = $kecamatanResponse->json();
+            $kecamatanResponse = Http::withOptions([
+                'verify' => false
+            ])->get('https://dataduk.test/api/alamat/kecamatan/' . $randomKabupaten['kode_kabupaten']);
+            $kecamatanData = $kecamatanResponse->json();
+            $randomkecamatan = $kecamatanData[array_rand($kecamatanData)];
 
-                foreach ($kecamatanData['kecamatan'] as $kecamatan) {
-                    // Ambil data desa berdasarkan kecamatan
-                    $desaResponse = Http::get('/api/desa', [
-                        'kode_kecamatan' => $kecamatan['kode_kecamatan']
-                    ]);
-                    $desaData = $desaResponse->json();
+            $desaResponse = Http::withOptions([
+                'verify' => false
+            ])->get('https://dataduk.test/api/alamat/desa/' . $randomkecamatan['kode_kecamatan']);
+            $desaData = $desaResponse->json();
+            $randomdesa = $desaData[array_rand($desaData)];
 
-                    foreach ($desaData['desa'] as $desa) {
-                        // Simpan data ke database dengan faker
-                        Domisili::create([
-                            'nik' => fake()->numerify('###########'), // NIK palsu
-                            'alamat_tujuan' => "{$desa['nama_desa']}, {$kecamatan['nama_kecamatan']}, {$kabupaten['nama_kabupaten']}, {$provinsi['nama_provinsi']}",
-                            // 'alamat_tujuan' => fake()->address,
-                            'keterangan' => fake()->sentence,
-                            'tanggal_pindah' => fake()->date,
-                            'alasan_pindah' => fake()->optional()->sentence,
-                            'status' => fake()->boolean,
-                        ]);
-                    }
-                }
-            }
+            // Buat nama file unik
+            $filename = 'pdf_' . time() . '_' . $data['nik'] . '.pdf';
+            $path = 'pdf/' . $filename;
+            Storage::disk('public')->put($path, $pdfContent);
+
+            Domisili::create([
+                'nik' => $data['nik'],
+                'alamat_asal' => fake()->street . ", {$randomdesa['nama_desa']}, {$randomkecamatan['nama_kecamatan']}, {$randomKabupaten['nama_kabupaten']}, {$randomprovinsi['nama_provinsi']}",
+                'alamat_tujuan' => $data['alamat'],
+                'tanggal_pindah' => fake()->dateTimeBetween('-17 years', 'now')->format('Y-m-d'),
+                'alasan_pindah' => fake()->sentence(10),
+                'link' => '/storage/' . $path,
+                'status' => "1",
+            ]);
         }
     }
 }

@@ -20,7 +20,7 @@
             <div class="card m-2" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
                 <div class="card-body text-center text-white">
                     <h5 class="card-title">TOTAL DATA</h5>
-                    <p class="card-text"><span id="total_penduduk"></span></p>
+                    <p class="card-text"><span id="total_data"></span></p>
                 </div>
             </div>
         </div>
@@ -28,8 +28,8 @@
         <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
             <div class="card m-2" style="background: linear-gradient(135deg, #455559, #769aa8);">
                 <div class="card-body text-center text-white">
-                    <h5 class="card-title">Laki-laki</h5>
-                    <p class="card-text"><span id="laki-laki"></span></p>
+                    <h5 class="card-title">Penduduk Tetap</h5>
+                    <p class="card-text"><span id="penduduk_tetap"></span></p>
                 </div>
             </div>
         </div>
@@ -37,8 +37,8 @@
         <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
             <div class="card m-2" style="background: linear-gradient(135deg, #3D5A73, #639ab0);">
                 <div class="card-body text-center text-white">
-                    <h5 class="card-title">Perempuan</h5>
-                    <p class="card-text"><span id="perempuan"></span></p>
+                    <h5 class="card-title">Pindahan</h5>
+                    <p class="card-text"><span id="pindahan"></span></p>
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
         <div class="col-md-6 col-lg-3 gap-2 col-sm-6">
             <div class="card m-2" style="background: linear-gradient(135deg, #455559, #769aa8);">
                 <div class="card-body text-center text-white">
-                    <h5 class="card-title">WNA</h5>
-                    <p class="card-text"><span id="wna"></span></p>
+                    <h5 class="card-title">Tahun Terbanyak</h5>
+                    <p class="card-text"><span id="tahun_terbanyak"></span></p>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@
             <option value="">Pilih Tahun</option>
             @php
             $currentYear = date('Y');
-            $startYear = 1970;
+            $startYear = 2000;
             @endphp
             @for ($year = $startYear; $year <= $currentYear; $year++)
                 <option value="{{ $year }}">{{ $year }}</option>
@@ -124,6 +124,7 @@
                                     <th>Alamat Tujuan</th>
                                     <th>Tanggal Pindah</th>
                                     <th>Alasan Pindah</th>
+                                    <th>PDF</th>
                                     <th>Status</th>
                                     <th>Aksi</th>
                                 </tr>
@@ -156,7 +157,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data dengan kode <span id="deletenik"></span> ini?
+                Apakah Anda yakin ingin menghapus data dengan nik <span id="deletenik"></span> ini?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -168,10 +169,23 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade mt-5" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="pdfModalLabel">PDF Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <embed id="pdfEmbed" src="" type="application/pdf" width="100%" height="400px" />
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="{{ asset('js/penduduk.js') }}"></script>
-<script src="{{ asset('js/chart.js') }}"></script>
+<script src="{{ asset('js/domisili.js') }}"></script>
 @endsection

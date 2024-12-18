@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DomisiliController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PendudukController;
@@ -31,14 +32,16 @@ Route::post('/keluar', [LoginController::class, 'keluar'])->middleware('auth')->
 // dashboard admin start
 Route::prefix('/dashboard')->middleware(['auth','admin'])->group(function(){
     Route::get('/', [AdminController::class, 'index']);
-    Route::get('/datapindah', [AdminController::class, 'index_domisili']);
     Route::get('/ubah/{penduduk:nik}', [PendudukController::class, 'show']);
     Route::get('/tambah', [PendudukController::class, 'create']);
-    Route::get('/pindah', [PendudukController::class, 'create_domisili']);
-    Route::post('/pindah', [PendudukController::class, 'store_domisili']);
+    Route::get('/datapindah', [AdminController::class, 'index_domisili']);
     Route::post('/tambah', [PendudukController::class, 'store']);
     Route::post('/ubah/{penduduk:nik}', [PendudukController::class, 'edit']);
     Route::post('/hapus/{penduduk:nik}', [PendudukController::class, 'destroy']);
+    Route::get('/pindah', [DomisiliController::class, 'create']);
+    Route::post('/pindah', [DomisiliController::class, 'store']);
+    Route::post('/ubah/domisili/{domisili:nik}', [PendudukController::class, 'edit']);
+    Route::post('/hapus/domisili/{domisili:nik}', [PendudukController::class, 'destroy']);
 });
 // dashboard admin end
 
