@@ -15,7 +15,7 @@ class DomisiliSeeder extends Seeder
      */
     public function run(): void
     {
-        $datas = StatusPenduduk::select('nik', 'alamat')->take(10)->get(); // Ambil semua NIK dari tabel penduduks
+        $datas = StatusPenduduk::select('nik', 'alamat')->take(100)->get(); // Ambil semua NIK dari tabel penduduks
         $url = 'https://dataduk.test/pdf/Pindah%20Domisili.pdf';
         $pdfContent = Http::withOptions(['verify' => false])->get($url)->body(); 
 

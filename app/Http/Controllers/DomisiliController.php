@@ -15,17 +15,16 @@ class DomisiliController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request, Penduduk $pdd)
+    public function index(Request $request, Domisili $dms)
     {
-        // Mulai query dengan relasi domisili dan data_status
-        $query = $pdd->newQuery()->with(['domisili', 'data_status']);
+        $query = $dms->newQuery()->with(['penduduk.data_status']);
 
         // Jika user adalah admin, gunakan logika pencarian admin
         if ($request->user() && $request->user()->admin == "1") {
             if ($request->has('search')) {
                 $query->where(function ($q) use ($request) {
                     $q->where('nik', 'like', '%' . $request->search . '%')
-                        ->orWhereHas('data_status', function ($subQuery) use ($request) {
+                        ->orWhereHas('penduduk.data_status', function ($subQuery) use ($request) {
                             $subQuery->where('nama', 'like', '%' . $request->search . '%');
                         });
                 });
@@ -34,17 +33,16 @@ class DomisiliController extends Controller
         // Jika bukan admin, hanya cari berdasarkan nama
         else {
             if ($request->has('search')) {
-                $query->whereHas('data_status', function ($subQuery) use ($request) {
+                $query->whereHas('penduduk.data_status', function ($subQuery) use ($request) {
                     $subQuery->where('nama', 'like', '%' . $request->search . '%');
                 });
             }
         }
 
         // Tambahkan filter whereHas untuk memastikan ada data domisili
-        $query->whereHas('domisili');
 
         // Urutkan berdasarkan updated_at dari tabel penduduks
-        $query->orderBy('penduduks.updated_at', 'desc');
+        $query->orderBy('updated_at', 'desc');
 
         // Ambil data dengan paginasi
         $data = $query->paginate(10);

@@ -207,7 +207,8 @@ function updateTable(penduduk) {
     let tableBody = document.getElementById('TablePenduduk');
     tableBody.innerHTML = ''; // Hapus isi tabel sebelumnya
     penduduk.data.forEach(item => {
-        let status = item.domisili[0].status;
+        console.log(item);
+        let status = item.status;
         if (status == "1") {
             status = "Pendatang";
         } else if (status == "0") {
@@ -217,15 +218,15 @@ function updateTable(penduduk) {
         }
         let row = `
         <tr>
-            ${createTableCell(item.data_status.nik)}
-            ${createTableCell(item.data_status.nama)}
-            ${createTableCell(item.jns_kel)}
-            ${createTableCell(item.domisili[0].alamat_asal)}
-            ${createTableCell(item.domisili[0].alamat_tujuan)}
-            ${createTableCell(item.domisili[0].tanggal_pindah)}
-            ${createTableCell(item.domisili[0].alasan_pindah)}
+            ${createTableCell(item.penduduk.data_status.nik)}
+            ${createTableCell(item.penduduk.data_status.nama)}
+            ${createTableCell(item.penduduk.jns_kel)}
+            ${createTableCell(item.alamat_asal)}
+            ${createTableCell(item.alamat_tujuan)}
+            ${createTableCell(item.tanggal_pindah)}
+            ${createTableCell(item.alasan_pindah)}
             ${createTableCell(status)}
-            ${createPDF(item.domisili[0].link)}
+            ${createPDF(item.link)}
         </tr>`;
         tableBody.innerHTML += row;
 

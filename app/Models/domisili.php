@@ -10,5 +10,8 @@ class domisili extends Model
     /** @use HasFactory<\Database\Factories\DomisiliFactory> */
     use HasFactory;
     protected $guarded = [];
-
+    public function penduduk()
+    {
+        return $this->belongsTo(Penduduk::class, 'nik', 'nik');
+    }
 }
