@@ -106,7 +106,7 @@ class DomisiliController extends Controller
         $nik = $data['nik'];
         $datapenduduk = statuspenduduk::where('nik', $nik)->first();
         $penduduk = penduduk::where('nik', $nik)->first();
-        if (is_null($nik)) {
+        if (is_null($datapenduduk)) {
             return redirect("/dashboard/pindah")->with('error', "Nik Belum Terdaftar.");
         }
 
